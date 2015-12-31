@@ -1,8 +1,65 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
-  color: #00B7FF;
+    color: #00B7FF;
+}
+
+
+
+form {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+form input {
+    background-color: #EFEAE9;
+    height: 50px;
+    font-size: 30px;
+    border: 0;
+    padding: 6px 10px;
+    width: 86%;
+    margin-right: .5%;
+    margin-left: 1.5%;
+}
+
+form button {
+    width: 9%;
+    background: rgb(130, 224, 255);
+    border: none;
+    padding: 10px;
+}
+
+.right {
+    text-align: right
+}
+
+#messages {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#messages li {
+    height: 33px;
+    padding: 9px;
+    display: block;
+}
+
+#messages li:nth-child(odd) {
+    background: #eee;
+}
+
+#messages li {
+    -webkit-animation-duration: 1s;
+    -webkit-animation-delay: 0.5s;
 }
