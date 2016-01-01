@@ -2,9 +2,12 @@ extends layout
 
 
 block content
-  h1= title
   ul(id="messages")
   form(action="")
     input(id="m" autocomplete="off")
     button(class="btn btn-5 btn-5b  icon-send") Send
 
+block footer
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.7/socket.io.js')
+  script(src='http://code.jquery.com/jquery-1.11.1.js')
+  script(src='/javascripts/connection.js')
