@@ -24,9 +24,9 @@ app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
-if ('development' == app.get('env')) {
+// if ('development' == app.get('env')) {
   app.use(express.errorHandler());
-}
+// }
 
 app.get('/', routes.index);
 app.get('/users', user.list);
@@ -44,40 +44,4 @@ server.listen(app.get('port'), function(){
 
 io.on('connection', function(socket){
     numberOfUsers++;
-
-
-    socket.username = '';
-
-    socket.emit('request login',{'id':socket.id});
-
-    socket.on('username',function (data) {
-        socket.username = data.username;
-        connections[numberOfUsers-1] = {
-            username:socket.username,
-            id:socket.id
-        };
-        socket.broadcast.emit('update users', {
-          status:'joined',
-          numberOfUsers: numberOfUsers,
-          connections:connections,
-          msg:socket.username+' joined'
-        });
-    })
-
-
-    socket.on('chat message', function(msg){
-        io.emit('chat message',{'username':socket.username,'msg':msg});
-        console.log(socket.username + ' said ' + msg);
-    });
-
-
-    socket.on('disconnect', function(){
-        console.log(socket.username +' got disconnected');
-        numberOfUsers--;
-        socket.broadcast.emit('update users', {
-          status:'disconnect',
-          numberOfUsers: numberOfUsers,
-          msg:socket.username+' got disconnected'
-        });
-    });
 });
