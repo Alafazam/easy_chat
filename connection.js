@@ -5,7 +5,7 @@ exports.connectionList = connectionList;
 exports.numberOfUsers = numberOfUsers;
 
 exports.userConnection = function (socket) {
-
+	numberOfUsers++;
     socket.username = '';
 
 
@@ -30,7 +30,8 @@ exports.userConnection = function (socket) {
 
 
     socket.on('chat message', function(msg){
-        io.emit('chat message',{'username':socket.username,'msg':msg});
+        socket.broadcast.emit('chat message',{'username':socket.username,'msg':msg});
+        socket.emit('chat message',{'username':socket.username,'msg':msg});
         console.log(socket.username + ' said ' + msg);
     });
 
@@ -47,7 +48,3 @@ exports.userConnection = function (socket) {
 
 
 };
-
-
-
-

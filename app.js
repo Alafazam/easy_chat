@@ -8,6 +8,7 @@ var routes = require('./routes');
 var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
+var connection = require('./connection');
 
 var app = express();
 
@@ -41,7 +42,5 @@ server.listen(app.get('port'), function(){
 });
 
 
+io.on('connection',connection.userConnection);
 
-io.on('connection', function(socket){
-    numberOfUsers++;
-});
