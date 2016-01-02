@@ -46,6 +46,9 @@ form button {
     list-style-type: none;
     margin: 0;
     padding: 0;
+    overflow-y: scroll;
+    margin-bottom: 100px;
+    max-height: 580px;
 }
 
 #messages li {
