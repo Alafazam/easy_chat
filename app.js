@@ -30,7 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // }
 
 app.get('/', routes.index);
-app.get('/users', user.list);
+// app.get('/users', user.list);
 
 var server = http.createServer(app)
 var io = require("socket.io").listen(server);

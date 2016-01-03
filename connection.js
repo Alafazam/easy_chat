@@ -8,8 +8,7 @@ exports.userConnection = function (socket) {
 	numberOfUsers++;
     socket.username = '';
 
-
-	//  make use tell his name
+	//  make user tell his name
     socket.emit('request login',{'id':socket.id});
 
 	// when we know who use is
@@ -29,9 +28,9 @@ exports.userConnection = function (socket) {
     })
 
 
-    socket.on('chat message', function(msg){
-        socket.broadcast.emit('chat message',{'username':socket.username,'msg':msg});
-        socket.emit('chat message',{'username':socket.username,'msg':msg});
+    socket.on('message', function(msg){
+        socket.broadcast.emit('message',{'username':socket.username,'msg':msg});
+        socket.emit('message',{'username':socket.username,'msg':msg});
         console.log(socket.username + ' said ' + msg);
     });
 
