@@ -5,7 +5,7 @@
 }
 
 body {
-    font: 13px "Lucida Grande", Helvetica, Arial, sans-serif;
+    font: 13px Helvetica, arial, nimbussansl, liberationsans, freesans, clean, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"};
 }
 
 a {
@@ -39,10 +39,11 @@ form button {
 }
 
 .right {
-    text-align: right
+    text-align: right;
+    margin-left: auto;
 }
 
-#messages {
+#messages-window {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -51,17 +52,39 @@ form button {
     max-height: 580px;
 }
 
-#messages li {
-    height: 33px;
-    padding: 9px;
+#messages-window li {
+    /*height: 50px;*/
+    padding: 10px;
     display: block;
+    max-width: 45%;
 }
 
-#messages li:nth-child(odd) {
-    background: #eee;
-}
-
-#messages li {
+#messages-window li {
     -webkit-animation-duration: 1s;
     -webkit-animation-delay: 0.5s;
+}
+.width-200{
+    max-width: 37%;
+}
+
+.messages{
+    display: inline-block;
+    padding: 5px;
+}
+
+.message_t{
+    /*background-color: #cdab32;*/
+    display: block;
+    padding-top:0px; 
+}
+
+.message_u{
+    /*background-color: green;*/
+}
+
+.message_ts{
+    /*background-color: blue;*/
+    color:blueviolet;
+    font-size: 10px;
+    padding-left: 0px;
 }

@@ -1,91 +1,54 @@
 <!doctype html>
 <html>
-  <head>
+
+<head>
     <title>Socket.IO chat</title>
-    <style>
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { font: 13px Helvetica, Arial; }
-      form { position: fixed; bottom: 0; width: 100%; }
-      
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../public/stylesheets/clear.css" />
+    <link rel="stylesheet" type="text/css" href="../public/stylesheets/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="../public/stylesheets/component.css" />
+    <link rel="stylesheet" type="text/css" href="../public/stylesheets/style.css" />
+</head>
 
-      form input { 
-        background-color: #EFEAE9;
-        height: 50px;
-        font-size: 30px;
-        border: 0;
-        padding: 6px 10px;
-        width: 86%;
-        margin-right: .5%; 
-        margin-left: 1.5%; 
-      }
-
-
-      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
-      .right{ text-align: right}
-      #messages { list-style-type: none; margin: 0; padding: 0; }
-      #messages li { height: 33px;padding: 9px;display: block; }
-      #messages li:nth-child(odd) { background: #eee; }
-      
-
-      #messages li {
-        -webkit-animation-duration: 1s;
-        -webkit-animation-delay: 0.5s;
-      }
-
-
-    </style>
-      <link rel="stylesheet" href="/animate.min.css">
-      <link rel="stylesheet" type="text/css" href="/component.css" />
-
-  </head>
-  <body>
-    <ul id="messages"></ul>
+<body>
+    <ul id="messages-window">
+        <li class="message_li animated bounceInLeft tada right">
+            <span class='messages message_u'>Alaf</span>
+            <span class='messages message_ts'>12:10 PM</span>
+            <span class='messages message_t width-200 right'>Hello my name is alaf</span>
+        </li>
+        <li class="message_li animated bounceInLeft tada">
+            <span class='messages message_u'>Alaf</span>
+            <span class='messages message_ts'>12:10 PM</span>
+            <span class='messages message_t width-200'>Hello my name is alaf</span>
+        </li>
+        <li class="message_li animated bounceInLeft tada right">
+            <span class='messages message_u'>Alaf</span>
+            <span class='messages message_ts'>12:10 PM</span>
+            <span class='messages message_t width-200 right'>Hello my name is alaf</span>
+        </li>
+        <li class="message_li animated bounceInLeft tada">
+            <span class='messages message_u'>Alaf</span>
+            <span class='messages message_ts'>12:10 PM</span>
+            <span class='messages message_t width-200'>Hello my name is alaf</span>
+        </li>
+        <li class="message_li animated bounceInLeft tada right">
+            <span class='messages message_u'>Alaf</span>
+            <span class='messages message_ts'>12:10 PM</span>
+            <span class='messages message_t width-200 right'>Hello my name is alaf</span>
+        </li>
+        <li class="message_li animated bounceInLeft tada">
+            <span class='messages message_u'>Alaf</span>
+            <span class='messages message_ts'>12:10 PM</span>
+            <span class='messages message_t width-200'>Hello my name is alaf</span>
+        </li>
+    </ul>
     <form action="">
-      <input id="m" autocomplete="off" /><button class="btn btn-5 btn-5b  icon-send">Send</button>
+        <input id="m" autocomplete="off" />
+        <button class="btn btn-5 btn-5b  icon-send">Send</button>
     </form>
-  </body>
-<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+</body>
 
-<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-<script>
-
-(function(){
-
-
-  var username = '';
-  var socket = io();
-  $('form').submit(function(){
-    if(!$('#m').val()||$('#m').val() == '')
-      return false;
-
-    socket.emit('chat message', $('#m').val());
-    $('#m').val('');
-    return false;
-  });
-  socket.on('chat message', function(data){
-    if(data.username == username){
-      data.username = '';
-      $('#messages').append(   $('<li>').text(data.msg).addClass('right')   );    
-    }else{
-      $('#messages').append(   $('<li>').text(data.username + ": " + data.msg).addClass('animated bounceInLeft tada')   );
-    }
-  });
-  socket.on('id', function(msg){
-    console.log(msg);
-  });
-  socket.on('update users', function (data) {
-    console.log(data);
-  });
-  socket.on('request login', function(data){
-    id = data.id;
-    username = prompt('please enter your usename')|| 'newUser';
-    socket.emit('username',{'username':username,'id':id});
-  });
-
-})();
-
-
-</script>
 </html>
-
 <!-- made by Alaf azam khan -->
