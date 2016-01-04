@@ -5,44 +5,40 @@
 }
 
 body {
-    font: 13px Helvetica, arial, nimbussansl, liberationsans, freesans, clean, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"};
+    font: 13px Helvetica, arial, nimbussansl, liberationsans, freesans, clean, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"
 }
 
+;
+
+}
 a {
     color: #00B7FF;
 }
-
-
-
 form {
     position: fixed;
     bottom: 0;
     width: 100%;
 }
-
 form input {
     background-color: #EFEAE9;
     height: 50px;
     font-size: 30px;
     border: 0;
     padding: 6px 10px;
-    width: 86%;
+    width: 84%;
     margin-right: .5%;
     margin-left: 1.5%;
 }
-
 form button {
-    width: 9%;
+    width: 13%;
     background: rgb(130, 224, 255);
     border: none;
     padding: 10px;
 }
-
 .right {
     text-align: right;
     margin-left: auto;
 }
-
 #messages-window {
     list-style-type: none;
     margin: 0;
@@ -51,40 +47,74 @@ form button {
     margin-bottom: 100px;
     max-height: 580px;
 }
-
 #messages-window li {
     /*height: 50px;*/
+    
     padding: 10px;
     display: block;
     max-width: 45%;
 }
-
 #messages-window li {
     -webkit-animation-duration: 1s;
     -webkit-animation-delay: 0.5s;
 }
-.width-200{
+.width-200 {
     max-width: 37%;
 }
-
-.messages{
+.messages {
     display: inline-block;
     padding: 5px;
 }
-
-.message_t{
+.message_t {
     /*background-color: #cdab32;*/
-    display: block;
-    padding-top:0px; 
+    /*display: block;*/
+    
+    padding-top: 0px;
+    text-align: left;
 }
-
-.message_u{
+.message_u {
     /*background-color: green;*/
 }
-
-.message_ts{
+.message_ts {
     /*background-color: blue;*/
-    color:blueviolet;
+    
+    color: blueviolet;
     font-size: 10px;
     padding-left: 0px;
 }
+
+
+
+/* Smartphones (portrait and landscape) ----------- */ 
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+    #messages-window li {
+        max-width: 95%;
+    }
+    form input{
+        width: 80%;
+    }
+    form button {
+        width: 18%;
+    }
+}
+
+/* Smartphones (landscape) ----------- */
+@media only screen and (min-width: 321px) {
+    /* STYLES GO HERE */
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen and (max-width: 320px) {
+    /* STYLES GO HERE */
+}
+
+/* Desktops and laptops ----------- */
+@media only screen and (min-width: 1224px) {
+    /* STYLES GO HERE */
+}
+
+/* Large screens ----------- */
+@media only screen and (min-width: 1824px) {
+    /* STYLES GO HERE */
+}
+
