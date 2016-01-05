@@ -8,6 +8,10 @@
     return div.innerHTML;
   };
 
+
+  var msg_box = document.getElementById('m');
+
+
   var username = '';
   var socket = io();
   var message_window = document.getElementById('messages-window'); 
@@ -56,6 +60,17 @@
     username = prompt('please enter your usename') || 'newUser';
     socket.emit('username',{'username':username,'id':id});
   });
+
+  msg_box.onkeypress = function (e) {
+    if((String.fromCharCode(e.which) || msg_box.value) && msg_box.value !== ' ' ){
+      console.log('true');
+      // socket.emit('start typing',{'username':username,'id':id});
+    }else{
+        console.log('fasle');
+      // socket.emit('stop typing',{'username':username,'id':id});      
+    }
+  }
+
 
 })();
 

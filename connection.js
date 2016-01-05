@@ -34,6 +34,13 @@ exports.userConnection = function (socket) {
         console.log(socket.username + ' said ' + msg);
     });
 
+      socket.on('start typing', function(msg){
+        socket.broadcast.emit('typing',{'username':msg.username,'id':msg.id});
+        console.log(msg.username + ' is typing');
+    });
+
+
+
 
     socket.on('disconnect', function(){
         console.log(socket.username +' got disconnected');
