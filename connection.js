@@ -19,11 +19,8 @@ exports.userConnection = function (socket) {
             id:socket.id
         };
         // notify others
-        socket.broadcast.emit('update users', {
-          status:'joined',
-          numberOfUsers: numberOfUsers,
-          connectionList:connectionList,
-          msg:socket.username+' joined'
+        socket.broadcast.emit('joined', {
+          username:socket.username
         });
     })
 
@@ -45,10 +42,8 @@ exports.userConnection = function (socket) {
     socket.on('disconnect', function(){
         console.log(socket.username +' got disconnected');
         numberOfUsers--;
-        socket.broadcast.emit('update users', {
-          status:'disconnect',
-          numberOfUsers: numberOfUsers,
-          msg:socket.username+' got disconnected'
+        socket.broadcast.emit('left', {
+          username:socket.username
         });
     });
 

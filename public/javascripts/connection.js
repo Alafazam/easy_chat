@@ -51,8 +51,12 @@
     message_window.appendChild(li);
   });
 
-  socket.on('update users', function (data) {
-    console.log(data);
+  socket.on('joined', function (data) {
+    $.notify(data.username + " has joined.", "info");
+  });
+
+  socket.on('left', function (data) {
+    $.notify(data.username + " has left.", "info");
   });
 
   socket.on('request login', function(data){
@@ -61,15 +65,15 @@
     socket.emit('username',{'username':username,'id':id});
   });
 
-  msg_box.onkeypress = function (e) {
-    if((String.fromCharCode(e.which) || msg_box.value) && msg_box.value !== ' ' ){
-      console.log('true');
-      // socket.emit('start typing',{'username':username,'id':id});
-    }else{
-        console.log('fasle');
-      // socket.emit('stop typing',{'username':username,'id':id});      
-    }
-  }
+  // msg_box.onkeypress = function (e) {
+  //   if((String.fromCharCode(e.which) || msg_box.value) && msg_box.value !== ' ' ){
+  //     console.log('true');
+  //     socket.emit('start typing',{'username':username,'id':id});
+  //   }else{
+  //       console.log('fasle');
+  //     socket.emit('stop typing',{'username':username,'id':id});      
+  //   }
+  // }
 
 
 })();
