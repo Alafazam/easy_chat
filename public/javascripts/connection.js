@@ -16,7 +16,7 @@
     }
 
 
-
+  // TODO ask username using modal window.
     function askUsername(again) {
         if (!again)
             return prompt('please enter your usename or cancel to use a random') || makeid();
