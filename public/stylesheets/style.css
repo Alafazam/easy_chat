@@ -20,9 +20,9 @@ form input {
     font-size: 30px;
     border: 0;
     padding: 6px 10px;
-    width: 84%;
+    width: 74%;
     margin-right: .5%;
-    margin-left: 1.5%;
+    margin-left: 5.5%;
 }
 form button {
     width: 13%;
@@ -38,7 +38,7 @@ form button {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    overflow-y: scroll;
+    overflow-y: auto;
     margin-bottom: 100px;
     max-height: 580px;
 }
@@ -53,17 +53,14 @@ form button {
     -webkit-animation-duration: 1s;
     -webkit-animation-delay: 0.5s;
 }
-.width-200 {
-    max-width: 37%;
-}
+
 .messages {
     display: inline-block;
     padding: 5px;
 }
 .message_t {
     /*background-color: #cdab32;*/
-    /*display: block;*/
-    
+    display: table;    
     padding-top: 0px;
     text-align: left;
 }
@@ -79,37 +76,19 @@ form button {
 }
 
 
+@media only screen and (max-width: 640px) {
 
-/* Smartphones (portrait and landscape) ----------- */ 
-@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
     #messages-window li {
         max-width: 95%;
     }
     form input{
-        width: 80%;
+        margin-left: 1.5%;    
     }
     form button {
-        width: 18%;
+    width: auto;
     }
-}
+    .button {
+        padding: 1.2em 5%;
+    }
 
-/* Smartphones (landscape) ----------- */
-@media only screen and (min-width: 321px) {
-    /* STYLES GO HERE */
 }
-
-/* Smartphones (portrait) ----------- */
-@media only screen and (max-width: 320px) {
-    /* STYLES GO HERE */
-}
-
-/* Desktops and laptops ----------- */
-@media only screen and (min-width: 1224px) {
-    /* STYLES GO HERE */
-}
-
-/* Large screens ----------- */
-@media only screen and (min-width: 1824px) {
-    /* STYLES GO HERE */
-}
-

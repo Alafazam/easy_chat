@@ -44,7 +44,7 @@
         if (!$('#m').val() || $('#m').val() == '')
             return false;
 
-        socket.emit('message', $('#m').val());
+        socket.emit('message', escapeHtml($('#m').val()));
         $('#m').val('');
         return false;
     });
