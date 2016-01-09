@@ -1,4 +1,7 @@
 var _ = require('lodash');
+var User = require('./user')
+
+
 
 var connectionList = [];
 var numberOfUsers = 0;

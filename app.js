@@ -9,6 +9,8 @@ var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
 var connection = require('./connection');
+var rooms = require('./rooms');
+
 
 var app = express();
 
@@ -44,3 +46,7 @@ server.listen(app.get('port'), function(){
 
 io.on('connection',connection.userConnection);
 
+
+rooms.P();
+
+var t = new rooms();

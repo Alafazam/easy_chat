@@ -1,4 +1,7 @@
-// doo.js
+// user.js
+
+
+
 var User = function(socket) {
 	this._socket = socket;
 	this.id = socket.id;
@@ -9,7 +12,7 @@ User.prototype.emit = function(event,data) {
 	this._socket.emit(event,data);
 }
 
-User.prototype.broadcast = function(event='message',data) {
+User.prototype.broadcast = function(event,data) {
 	event = event || 'message';	
 	this._socket.broadcast.emit(event,data);
 }
@@ -29,50 +32,61 @@ User.prototype.init = function() {
 
 
 User.prototype.disconnect = function() {
-	this.broadcast()
+	this.broadcast();
 };
 
-socket.username = '';
+
+User.prototype.add_to_room = function(room) {
+    
+};
 
 
-//  make use tell his name
-socket.emit('request login', {
-    'id': socket.id
-});
-
-// when we know who user is
-socket.on('username', function(data) {
-    socket.username = data.username;
-    connectionList[numberOfUsers - 1] = {
-        username: socket.username,
-        id: socket.id
-    };
-    // notify others
-    socket.broadcast.emit('update users', {
-        status: 'joined',
-        numberOfUsers: numberOfUsers,
-        connectionList: connectionList,
-        msg: socket.username + ' joined'
-    });
-})
+// socket.username = '';
 
 
-socket.on('chat message', function(msg) {
-    io.emit('chat message', {
-        'username': socket.username,
-        'msg': msg
-    });
-    console.log(socket.username + ' said ' + msg);
-});
+// //  make use tell his name
+// socket.emit('request login', {
+//     'id': socket.id
+// });
+
+// // when we know who user is
+// socket.on('username', function(data) {
+//     socket.username = data.username;
+//     connectionList[numberOfUsers - 1] = {
+//         username: socket.username,
+//         id: socket.id
+//     };
+//     // notify others
+//     socket.broadcast.emit('update users', {
+//         status: 'joined',
+//         numberOfUsers: numberOfUsers,
+//         connectionList: connectionList,
+//         msg: socket.username + ' joined'
+//     });
+// })
 
 
-socket.on('disconnect', function() {
-    console.log(socket.username + ' got disconnected');
-    numberOfUsers--;
-    socket.broadcast.emit('update users', {
-        status: 'disconnect',
-        numberOfUsers: numberOfUsers,
-        msg: socket.username + ' got disconnected'
-    });
-});
+// socket.on('chat message', function(msg) {
+//     io.emit('chat message', {
+//         'username': socket.username,
+//         'msg': msg
+//     });
+//     console.log(socket.username + ' said ' + msg);
+// });
+
+
+// socket.on('disconnect', function() {
+//     console.log(socket.username + ' got disconnected');
+//     numberOfUsers--;
+//     socket.broadcast.emit('update users', {
+//         status: 'disconnect',
+//         numberOfUsers: numberOfUsers,
+//         msg: socket.username + ' got disconnected'
+//     });
+// });
+
+
+
+
+
 module.exports = User;
