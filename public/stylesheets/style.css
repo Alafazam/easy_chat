@@ -30,7 +30,7 @@ form button {
     border: none;
     padding: 10px;
 }
-.right {
+._right {
     text-align: right;
     margin-left: auto;
 }

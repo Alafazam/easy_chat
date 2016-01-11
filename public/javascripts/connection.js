@@ -70,8 +70,8 @@
         li.appendChild(message_ts);
         li.appendChild(message_t);
         if (data.username == username) {
-            classie.add(li, "right");
-            classie.add(message_t, "right");
+            classie.add(li, "_right");
+            classie.add(message_t, "_right");
         }
         message_window.appendChild(li);
     });
