@@ -18,13 +18,14 @@ exports.userConnection = function(socket) {
     // when we know who use is
     socket.on('username', function(data) {
         var username = data.username;
-        var nameExists =  _.filter(connectionList, _.matches({ username:data.username, id:socket.id}));
-
+        var nameExists = _.some(connectionList, function(item) {
+            return item.username === username;
+        });
+        
         if (nameExists) {
           socket.emit('request login',{
             exists: true
           });
-
         } else {
             socket.username = data.username;
             connectionList[numberOfUsers - 1] = {

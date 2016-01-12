@@ -83,7 +83,9 @@
         $('#modal1').openModal({
             dismissible: false,
             complete: function() { 
-                
+                var userName = escapeHtml($('#username.validate')[0].value);
+                // console.log(userName);
+                socket.emit('username', {username: userName});
             }
         });
     });

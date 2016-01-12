@@ -15,14 +15,16 @@ block content
   
   div(id="modal1", class="modal")
     div(class="modal-content")
+      h4
+       |What sould we call you?
       form(class="col s12")
-          div(class="row")
-            div(class="input-field col s12")
-              i(class="material-icons prefix")
-                |account_circle
-              input(id="username", value= #{name}, type="text", class="validate")
-              label(class="active" for="username")
-                |First Name
+        div(class="row")
+          div(class="input-field col s12")
+            i(class="material-icons prefix")
+              |account_circle
+            input(id="username", value= '#{name}', type="text", class="validate")
+            label(class="active" for="username")
+              |First Name
     div(class="modal-footer")
       a(href="#!", class=" modal-action modal-close waves-effect waves-green btn-flat")
         |okay.
