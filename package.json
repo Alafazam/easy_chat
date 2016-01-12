@@ -2,8 +2,8 @@
   "name": "easychat",
   "version": "0.0.5",
   "scripts": {
-    "start": "node app.js",
-    "main": "app.js"
+    "start": "node server.js",
+    "main": "server.js"
   },
   "dependencies": {
     "express": "3.5.2",
