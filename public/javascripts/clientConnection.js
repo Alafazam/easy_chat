@@ -44,6 +44,8 @@
     });
 
     socket.on('message', function(data) {
+        var d = new Date();
+        var current_time = d.getHours()+":"+d.getMinutes();
         var li = document.createElement("li");
 
         classie.add(li, "message_li animated");
@@ -53,7 +55,7 @@
         classie.add(message_u, "messages message_u");
 
         var message_ts = document.createElement("span");
-        message_ts.appendChild(document.createTextNode('12:30 PM'));
+        message_ts.appendChild(document.createTextNode(current_time));
         classie.add(message_ts, "messages message_ts");
 
         var message_t = document.createElement("span");
