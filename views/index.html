@@ -11,10 +11,9 @@
     <!-- <link rel="stylesheet" type="text/css" href="../public/stylesheets/style.css" /> -->
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
-  <!-- Compiled and minified CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
-
- </head>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+</head>
 
 <body>
     <div class="container">
@@ -30,10 +29,26 @@
         <br>
         <br>
     </div>
-
-
 </body>
 <script src='http://code.jquery.com/jquery-1.11.1.js'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+
+<script>
+(function (argument) {
+    function makeid() {
+        var text = "";
+        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_";
+        for (var i = 0; i < 10; i++)
+            text += possible.charAt(Math.floor(Math.random() * possible.length));
+        return text;        
+   }
+  $('input#username')[0].value = makeid();
+
+})();
+
+
+</script>
+
 <script>
 (function(argument) {
     $('.button').mousedown(function(e) {

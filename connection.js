@@ -24,6 +24,7 @@ exports.userConnection = function(socket) {
           socket.emit('request login',{
             exists: true
           });
+
         } else {
             socket.username = data.username;
             connectionList[numberOfUsers - 1] = {
@@ -36,7 +37,6 @@ exports.userConnection = function(socket) {
             });
         }
     })
-
 
     socket.on('message', function(msg) {
         socket.broadcast.emit('message', {

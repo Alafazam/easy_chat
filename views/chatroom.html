@@ -15,6 +15,34 @@
 </head>
 
 <body>
+    <div class="container">
+        <a class="waves-effect waves-light btn modal-trigger" href="#modal1" onclick="$('#modal1').openModal();">Modal</a>
+        
+        <div id="modal1" class="modal">
+            
+            <div class="modal-content">
+                <form class="col s12">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">account_circle</i>
+                            <input id="username" value='random' type="text" class="validate" >
+                            <label class="active" for="username">First Name</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+              
+            <div class="modal-footer">
+                <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Accept</a>
+            </div>
+        
+
+        </div>
+    
+
+
+    </div>
+
     <ul id="messages-window">
         <li class="message_li animated bounceInLeft tada right">
             <span class='messages message_u'>Alaf</span>

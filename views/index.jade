@@ -2,17 +2,16 @@ extends layout
 
 
 block content
-  ul(id="messages-window")
-  
-  div(class='container')
-    form(action="")
-      div(class='row')
-        div(class='input-feild col s8')
-          input(id="m" autocomplete="off")
+  div(class="container")
+    h1(class="header center teal-text text-lighten-2")
+      |Easy Chat :_ 
 
-        button(class="col btn-large waves-effect waves-light teal lighten-1") 
-         |Send
-
+    div(class="row center")
+      h5(class="header col s12 light")
+        |A modern chatting app based on NodeJs and SocketIo
+    div(class="row center")
+      a(href="#", id="download-button", class="btn-large waves-effect waves-light teal lighten-1")
+       |Get Started  #{name}
 
 block footer
   script(src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.7/socket.io.js')

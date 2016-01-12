@@ -6,6 +6,8 @@
 var express = require('express');
 var routes = require('./routes');
 var user = require('./routes/user');
+var chatroom = require('./routes/chatroom');
+
 var http = require('http');
 var path = require('path');
 var connection = require('./connection');
@@ -32,6 +34,8 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
+app.get('/chatroom', chatroom.chatroom);
+
 // app.get('/users', user.list);
 
 var server = http.createServer(app)

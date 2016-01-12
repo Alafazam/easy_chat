@@ -17,13 +17,7 @@
 
 
   // TODO ask username using modal window.
-    function askUsername(again) {
-        if (!again)
-            return prompt('please enter your usename or cancel to use a random') || makeid();
-        else if (again == 'exist')
-            return prompt('username exist please enter another or cancel to use a random') || makeid();
-        else if (again == 'invalid')
-            return prompt('username is invalid please enter another or cancel to use a random') || makeid();
+    function getUsername() {
     }
 
     function validateUsername(username) {
@@ -85,18 +79,8 @@
     });
 
     socket.on('request login', function(data) {
-        var type = 'invalid';
 
-        if(data.exists == true)
-            type = 'exist';
-
-        username = askUsername();
-
-        while (!validateUsername(username)) {
-            username = askUsername(type);
-        }
-        socket.emit('username', {
-            'username': username,
-        });
     });
+
+
 })();
