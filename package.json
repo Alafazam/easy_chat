@@ -1,10 +1,9 @@
 {
   "name": "easychat",
   "version": "0.0.5",
-  "private": true,
   "scripts": {
-    "start": "node app.js 8080",
-    "main": "server.js"
+    "start": "node app.js",
+    "main": "app.js"
   },
   "dependencies": {
     "express": "3.5.2",

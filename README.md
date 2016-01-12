@@ -15,7 +15,7 @@ git clone https://github.com/Alafazam/easy_chat.git
 cd easy_chat
 npm install
 ```
-2. All done. Run your bot:
+2. All done. Run:
 ```bash
 npm start
 ```
