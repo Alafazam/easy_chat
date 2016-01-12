@@ -9,12 +9,12 @@ body {
 a {
     color: #00B7FF;
 }
-form {
+form.messagebox{
     position: fixed;
     bottom: 0;
     width: 100%;
 }
-form input {
+.messagebox input {
     background-color: #EFEAE9;
     height: 50px;
     font-size: 30px;
@@ -24,7 +24,8 @@ form input {
     margin-right: .5%;
     margin-left: 5.5%;
 }
-form button {
+
+.messagebox button {
     width: 13%;
     background: rgb(130, 224, 255);
     border: none;

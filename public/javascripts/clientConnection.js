@@ -80,6 +80,12 @@
 
     socket.on('request login', function(data) {
 
+        $('#modal1').openModal({
+            dismissible: false,
+            complete: function() { 
+                
+            }
+        });
     });
 
 

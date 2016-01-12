@@ -5,19 +5,32 @@ block content
   ul(id="messages-window")
   
   div(class='container')
-    form(action="")
+    form(action="",class="messagebox")
       div(class='row')
         div(class='input-feild col s8')
-          input(id="m" autocomplete="off")
+          input(id="m" autocomplete="off",class='messagebox')
 
-        button(class="col btn-large waves-effect waves-light teal lighten-1") 
+        button(class="col btn-large waves-effect waves-light teal lighten-1 messagebox") 
          |Send
-
+  
+  div(id="modal1", class="modal")
+    div(class="modal-content")
+      form(class="col s12")
+          div(class="row")
+            div(class="input-field col s12")
+              i(class="material-icons prefix")
+                |account_circle
+              input(id="username", value= #{name}, type="text", class="validate")
+              label(class="active" for="username")
+                |First Name
+    div(class="modal-footer")
+      a(href="#!", class=" modal-action modal-close waves-effect waves-green btn-flat")
+        |okay.
+        
 
 block footer
   script(src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.7/socket.io.js')
   script(src='http://code.jquery.com/jquery-1.11.1.js')
   script(src='/javascripts/classie.js')
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js")
   script(src='/javascripts/clientConnection.js')
-  script(src='https://cdn.rawgit.com/wavded/humane-js/master/humane.min.js')
-  script(src='/javascripts/button.js')
