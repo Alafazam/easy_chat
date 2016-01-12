@@ -13,11 +13,13 @@ var path = require('path');
 var connection = require('./connection');
 // var rooms = require('./rooms');
 
+var server_port = process.env.OPENSHIFT_NODEJS_PORT;
+var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1'
 
 var app = express();
 
 // all environments
-app.set('port', process.argv[2] || process.env.PORT || 3000);
+app.set('port', server_port || process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.use(express.favicon());
