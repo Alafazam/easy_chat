@@ -18,12 +18,13 @@ exports.userConnection = function(socket) {
     // when we know who use is
     socket.on('username', function(data) {
         var username = data.username;
-        // var nameExists = _.some(connectionList, function(item) {
-        //     return item.username == username;
-        // });
-        // if (nameExists) {
-          
-        // } else {
+        var nameExists =  _.filter(connectionList, _.matches({ username:data.username, id:socket.id}));
+
+        if (nameExists) {
+          socket.emit('request login',{
+            exists: true
+          });
+        } else {
             socket.username = data.username;
             connectionList[numberOfUsers - 1] = {
                 username: socket.username,
@@ -33,8 +34,7 @@ exports.userConnection = function(socket) {
             socket.broadcast.emit('joined', {
                 username: socket.username
             });
-        // }
-
+        }
     })
 
 
@@ -68,6 +68,8 @@ exports.userConnection = function(socket) {
         socket.broadcast.emit('left', {
             username: socket.username
         });
+        _.pull(connectionList,{ username: socket.username,
+                                id: socket.id});
     });
 
 

@@ -28,7 +28,7 @@
 
     function validateUsername(username) {
         if (username && username.length > 2 && username.length <= 15 && username != '' && /^[a-zA-Z_]+$/.test(username))
-            return username;
+            return true;
         else false;
     }
 
@@ -85,20 +85,17 @@
     });
 
     socket.on('request login', function(data) {
-        username = askUsername();
-        while (!validateUsername(username)) {
-            username = askUsername('invalid');
-        }
-        socket.emit('username', {
-            'username': username,
-        });
-    });
+        var type = 'invalid';
 
-    socket.on('usernameExist', function(data) {
-      username = askUsername('exist');
+        if(data.exists == true)
+            type = 'exist';
+
+        username = askUsername();
+
         while (!validateUsername(username)) {
-            username = askUsername('invalid');
+            username = askUsername(type);
         }
+
         socket.emit('username', {
             'username': username,
         });
