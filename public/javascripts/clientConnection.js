@@ -95,22 +95,8 @@
         while (!validateUsername(username)) {
             username = askUsername(type);
         }
-
         socket.emit('username', {
             'username': username,
         });
     });
-
-
-    // msg_box.onkeypress = function (e) {
-    //   if((String.fromCharCode(e.which) || msg_box.value) && msg_box.value !== ' ' ){
-    //     console.log('true');
-    //     socket.emit('start typing',{'username':username,'id':id});
-    //   }else{
-    //       console.log('fasle');
-    //     socket.emit('stop typing',{'username':username,'id':id});      
-    //   }
-    // }
-
-
 })();
