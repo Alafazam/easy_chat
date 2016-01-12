@@ -29,7 +29,7 @@
     var msg_box = document.getElementById('m');
 
 
-    var username = '';
+    var global_username = '';
     var socket = io();
     var id = null;
 
@@ -46,7 +46,7 @@
     socket.on('message', function(data) {
         var li = document.createElement("li");
 
-        classie.add(li, "message_li animated bounceInLeft tada");
+        classie.add(li, "message_li animated");
 
         var message_u = document.createElement("span");
         message_u.appendChild(document.createTextNode(data.username));
@@ -63,20 +63,24 @@
         li.appendChild(message_u);
         li.appendChild(message_ts);
         li.appendChild(message_t);
-        if (data.username == username) {
-            classie.add(li, "_right");
+        if (data.username == global_username) {
+            classie.add(li, "zoomInLeft _right");
             classie.add(message_t, "_right");
+        }else{
+            classie.add(li, "zoomInRight");
         }
+
         message_window.appendChild(li);
     });
 
     socket.on('joined', function(data) {
-        $.notify(data.username + " has joined.", "info");
+        // $.notify(data.username + " has joined.", "info");
+         Materialize.toast(data.username + " has joined.", 4000);
     });
 
-    socket.on('left', function(data) {
-        $.notify(data.username + " has left.", "info");
-    });
+    // socket.on('left', function(data) {
+    //      Materialize.toast(data.username + " has left.", 4000);
+    // });
 
     socket.on('request login', function(data) {
 
@@ -85,6 +89,7 @@
             complete: function() { 
                 var userName = escapeHtml($('#username.validate')[0].value);
                 // console.log(userName);
+                global_username = userName;
                 socket.emit('username', {username: userName});
             }
         });

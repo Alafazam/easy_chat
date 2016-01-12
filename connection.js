@@ -3,8 +3,6 @@ var _ = require('lodash');
 var connectionList = [];
 var numberOfUsers = 0;
 
-exports.connectionList = connectionList;
-exports.numberOfUsers = numberOfUsers;
 
 exports.userConnection = function(socket) {
     numberOfUsers++;
@@ -18,9 +16,15 @@ exports.userConnection = function(socket) {
     // when we know who use is
     socket.on('username', function(data) {
         var username = data.username;
-        var nameExists = _.some(connectionList, function(item) {
-            return item.username === username;
-        });
+        console.log(username);
+
+        if(connectionList.length>1){
+          var nameExists = _.some(connectionList, function(item) {
+              return item.username == username;
+          });
+        }else{
+          var nameExists = false;
+        }
         
         if (nameExists) {
           socket.emit('request login',{
@@ -28,10 +32,11 @@ exports.userConnection = function(socket) {
           });
         } else {
             socket.username = data.username;
-            connectionList[numberOfUsers - 1] = {
+
+            connectionList.push({
                 username: socket.username,
                 id: socket.id
-            };
+            });
             // notify others
             socket.broadcast.emit('joined', {
                 username: socket.username
