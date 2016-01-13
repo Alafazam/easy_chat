@@ -71,7 +71,7 @@
         }else{
             classie.add(li, "zoomInRight");
         }
-
+        emojify.run(li);
         message_window.appendChild(li);
     });
 
