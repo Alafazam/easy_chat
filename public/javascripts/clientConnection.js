@@ -60,6 +60,7 @@
 
         var message_t = document.createElement("span");
         message_t.appendChild(document.createTextNode(data.msg));
+        emojify.run(message_t);
         classie.add(message_t, "messages message_t");
 
         li.appendChild(message_u);
@@ -71,7 +72,6 @@
         }else{
             classie.add(li, "zoomInRight");
         }
-        emojify.run(li);
         message_window.appendChild(li);
     });
 
