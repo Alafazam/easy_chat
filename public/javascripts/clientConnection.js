@@ -77,7 +77,7 @@
 
     socket.on('joined', function(data) {
         // $.notify(data.username + " has joined.", "info");
-         Materialize.toast(data.username + " has joined.", 4000);
+         Materialize.toast(data.username + " has joined.", 4000,"center-align");
     });
 
     // socket.on('left', function(data) {
