@@ -1,5 +1,7 @@
 (function() {
 
+     $('.modal-trigger').leanModal();
+
     // crazy way of eascaping
     function escapeHtml(str) {
         var div = document.createElement('div');
