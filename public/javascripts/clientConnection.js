@@ -1,6 +1,8 @@
 (function() {
+    var loggedIn = false;
 
-     $('.modal-trigger').leanModal();
+
+    // $('.modal-trigger').leanModal();
 
     // crazy way of eascaping
     function escapeHtml(str) {
@@ -46,6 +48,9 @@
     });
 
     socket.on('message', function(data) {
+        if(!loggedIn)
+            return;
+
         var d = new Date();
         var current_time = d.getHours()+":"+d.getMinutes();
         var li = document.createElement("li");
@@ -78,6 +83,9 @@
     });
 
     socket.on('joined', function(data) {
+        if(!loggedIn)
+            return;
+
         // $.notify(data.username + " has joined.", "info");
          Materialize.toast(data.username + " has joined.", 4000,"center-align");
     });
@@ -87,16 +95,18 @@
     // });
 
     socket.on('request login', function(data) {
+        if(loggedIn)
+            return;
 
         $('#modal1').openModal({
             dismissible: false,
             complete: function() { 
-                var userName = escapeHtml($('#username.validate')[0].value);
-                // console.log(userName);
-                global_username = userName;
-                socket.emit('username', {username: userName});
+                global_username = escapeHtml($('#username.validate')[0].value);
+                socket.emit('username', {username: global_username});
+                loggedIn = true;
             }
         });
+
     });
 
 
