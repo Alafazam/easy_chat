@@ -42,7 +42,13 @@
         if (!$('#m').val() || $('#m').val() == '')
             return false;
 
-        socket.emit('message', escapeHtml($('#m').val()));
+        var message = escapeHtml($('#m').val());
+
+
+
+
+        socket.emit('message',message);
+        
         $('#m').val('');
         return false;
     });
@@ -87,7 +93,7 @@
             return;
 
         // $.notify(data.username + " has joined.", "info");
-         Materialize.toast(data.username + " has joined.", 4000,"center-align");
+         Materialize.toast(data.username + " has joined.", 40000);
     });
 
     // socket.on('left', function(data) {
@@ -104,6 +110,7 @@
                 global_username = escapeHtml($('#username.validate')[0].value);
                 socket.emit('username', {username: global_username});
                 loggedIn = true;
+                Materialize.toast(global_username + " has joined.", 99999990000);
             }
         });
 
