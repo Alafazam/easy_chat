@@ -79,21 +79,23 @@
         li.appendChild(message_u);
         li.appendChild(message_ts);
         li.appendChild(message_t);
+        
         if (data.username == global_username) {
             classie.add(li, "zoomInLeft _right");
             classie.add(message_t, "_right");
         }else{
             classie.add(li, "zoomInRight");
         }
+
         message_window.appendChild(li);
+
+        $("html, body").animate({ scrollTop: $(document).height()}, 100);
     });
 
     socket.on('joined', function(data) {
         if(!loggedIn)
             return;
-
-        // $.notify(data.username + " has joined.", "info");
-         Materialize.toast(data.username + " has joined.", 40000);
+         Materialize.toast(data.username + " has joined.", 2000);
     });
 
     // socket.on('left', function(data) {
@@ -110,7 +112,6 @@
                 global_username = escapeHtml($('#username.validate')[0].value);
                 socket.emit('username', {username: global_username});
                 loggedIn = true;
-                Materialize.toast(global_username + " has joined.", 99999990000);
             }
         });
 

@@ -2,18 +2,19 @@ extends layout
 
 
 block content
-  ul(id="messages-window")
+  main
+    div(class='container')
+      ul(id="messages-window")
   
-  div(class='container')
-    form(action="",class="messagebox")
-      div(class='row')
-        div(class='input-feild col s8')
-          input(id="m"  autofocus="true"  autocomplete="off",class='messagebox')
-          a(class="waves-effect waves-light btn modal-trigger" href="#modal2")
-           |Modal
+  footer(class='page-footer')
+    div(class='container')
+      form(action="",class="")
+        div(class='row')
+          div(class='col s8 input-feild')
+            input(id="m"  autofocus="true"  autocomplete="off",class='messagebox')
 
-        button(class="col btn-large waves-effect waves-light teal lighten-1 messagebox") 
-         |Send
+          button(class="col s2 btn-large waves-effect waves-light teal lighten-1 messagebox") 
+           |Send
   
   div(id="modal1", class="modal")
     div(class="modal-content")

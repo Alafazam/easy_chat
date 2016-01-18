@@ -3,16 +3,33 @@
     padding: 0;
     box-sizing: border-box;
 }
+
 body {
     font: 13px Helvetica, arial, nimbussansl, liberationsans, freesans, clean, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"
 }
+
 a {
     color: #00B7FF;
 }
-form.messagebox{
+
+form.messagebox {
     position: fixed;
     bottom: 0;
     width: 100%;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+footer.page-footer{
+    background-color: #FFFFFF !important ;
 }
 .messagebox input {
     background-color: #EFEAE9;
@@ -31,25 +48,28 @@ form.messagebox{
     border: none;
     padding: 10px;
 }
+
 ._right {
     text-align: right;
     margin-left: auto;
 }
+
 #messages-window {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    overflow-y: auto;
+    /*overflow-y: auto;*/
     margin-bottom: 100px;
-    max-height: 580px;
+    /*max-height: 580px;*/
 }
+
 #messages-window li {
     /*height: 50px;*/
-    
     padding: 10px;
     display: block;
     max-width: 45%;
 }
+
 #messages-window li {
     -webkit-animation-duration: 1s;
     -webkit-animation-delay: 0.5s;
@@ -59,37 +79,36 @@ form.messagebox{
     display: inline-block;
     padding: 5px;
 }
+
 .message_t {
     /*background-color: #cdab32;*/
-    display: table;    
+    display: table;
     padding-top: 0px;
     text-align: left;
 }
+
 .message_u {
     /*background-color: green;*/
 }
+
 .message_ts {
     /*background-color: blue;*/
-    
     color: blueviolet;
     font-size: 10px;
     padding-left: 0px;
 }
 
-
 @media only screen and (max-width: 640px) {
-
     #messages-window li {
         max-width: 95%;
     }
-    form input{
-        margin-left: 1.5%;    
+    form input {
+        margin-left: 1.5%;
     }
     form button {
-    width: auto;
+        width: auto;
     }
     .button {
         padding: 1.2em 5%;
     }
-
 }
