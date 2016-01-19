@@ -4,13 +4,13 @@ extends layout
 block content
   main
     div(class='container')
-      ul(id="messages-window")
+      ul(id="messages-window",class="row")
   
   footer(class='page-footer')
     div(class='container')
       form(action="",class="")
         div(class='row')
-          div(class='col s8 input-feild')
+          div(class='col offset-s1 s8 input-feild')
             input(id="m"  autofocus="true"  autocomplete="off",class='messagebox')
 
           button(class="col s2 btn-large waves-effect waves-light teal lighten-1 messagebox") 

@@ -6,112 +6,111 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="../public/stylesheets/clear.css" />
-    <link rel="stylesheet" type="text/css" href="../public/stylesheets/animate.min.css">
-    <!-- <link rel="stylesheet" type="text/css" href="../public/stylesheets/component.css" /> -->
     <link rel="stylesheet" type="text/css" href="../public/stylesheets/style.css" />
+    <link rel="stylesheet" type="text/css" href="../public/stylesheets/animate.min.css">
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
-
+    <link rel="stylesheet" href="https://cdn.rawgit.com/Ranks/emojify.js/master/dist/css/basic/emojify.min.css">
 </head>
 
 <body>
-    <div class="container">
-        <a class="waves-effect waves-light btn modal-trigger" href="#modal1" onclick="$('#modal1').openModal();">Modal</a>
-        
-        <div id="modal1" class="modal">
-            
-            <div class="modal-content">
-                <form class="col s12">
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <i class="material-icons prefix">account_circle</i>
-                            <textarea id="username" value='random' type="text" class="validate"> </textarea> 
-                            <label class="active" for="username">First Name</label>
-                        </div>
-                    </div>
-                </form>
-            </div>
-              
-            <div class="modal-footer">
-                <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Accept</a>
-            </div>
-        
+    <main>
+        <div class="container">
+            <ul id="messages-window" class="row">
+                <li class="row message_li animated bounceInLeft tada col s6 offset-s6">
+                
+                    <span class='col s10 message_u right-align'>Alaf</span>
+                
+                    <span class='col s2 message_ts'>12:10 PM</span>
+                
+                    <span class='col offset-s4 s8 message_t  right-align'>RIGHT Hello my name is alaf</span>
+                
 
+                </li>
+                <li class="row message_li animated bounceInLeft tada col s6">
+                    <span class='col s10 message_u'>Alaf</span>
+                    <span class='col s2 message_ts'>12:10 PM</span>
+                    <span class='col s12 message_t '>Hello my name is alaf</span>
+                </li>
+                <li class="row message_li animated bounceInLeft tada col s6 offset-s6">
+                    <span class='col s10 right-align message_u'>Alaf</span>
+                    <span class='col s2 message_ts'>12:10 PM</span>
+                    <span class='col offset-s4 s8 message_t  right-align'>RIGHT Hello my name is alaf</span>
+                </li>
+                <li class="row message_li animated bounceInLeft tada col s6">
+                    <span class='col message_u'>Alaf</span>
+                    <span class='col s2 message_ts'>12:10 PM</span>
+                    <span class='col s12 message_t '>Hello my name is alaf</span>
+                </li>
+                <li class="row message_li animated bounceInLeft tada col s6 offset-s6">
+                    <span class='col s10 right-align message_u'>Alaf</span>
+                    <span class='col s2 message_ts'>12:10 PM</span>
+                    <span class='col offset-s4 s8 message_t  right-align'>RIGHT Hello my name is alaf</span>
+                </li>
+                <li class="row message_li animated bounceInLeft tada col s6">
+                    <span class='col message_u'>Alaf</span>
+                    <span class='col s2 message_ts'>12:10 PM</span>
+                    <span class='col s12 message_t '>Hello my name is alaf</span>
+                </li>
+            </ul>
         </div>
-    
-
-
+    </main>
+    <footer class="page-footer">
+        <div class="container">
+            <form action="">
+                <div class="row">
+                    <div class="col offset-s1 s8 input-feild">
+                        <input id="m" autofocus="true" autocomplete="off" class="messagebox">
+                    </div>
+                    <button class="col s2 btn-large waves-effect waves-light teal lighten-1 messagebox">
+                        Send</button>
+                </div>
+            </form>
+        </div>
+    </footer>
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <h4>What sould we call you?</h4>
+            <form class="col s12">
+                <div class="row">
+                    <div class="input-field col s12"><i class="material-icons prefix">account_circle</i>
+                        <input id="username" value="Iweisi Chrimtin" type="text" class="validate">
+                        <label for="username" class="active">First Name</label>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer"><a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">okay.</a>
+        </div>
     </div>
-
-    <ul id="messages-window">
-        <li class="message_li animated bounceInLeft tada right">
-            <span class='messages message_u'>Alaf</span>
-            <span class='messages message_ts'>12:10 PM</span>
-            <span class='messages message_t width-200 right'>Hello my name is alaf</span>
-        </li>
-        <li class="message_li animated bounceInLeft tada">
-            <span class='messages message_u'>Alaf</span>
-            <span class='messages message_ts'>12:10 PM</span>
-            <span class='messages message_t width-200'>Hello my name is alaf</span>
-        </li>
-        <li class="message_li animated bounceInLeft tada right">
-            <span class='messages message_u'>Alaf</span>
-            <span class='messages message_ts'>12:10 PM</span>
-            <span class='messages message_t width-200 right'>Hello my name is alaf</span>
-        </li>
-        <li class="message_li animated bounceInLeft tada">
-            <span class='messages message_u'>Alaf</span>
-            <span class='messages message_ts'>12:10 PM</span>
-            <span class='messages message_t width-200'>Hello my name is alaf</span>
-        </li>
-        <li class="message_li animated bounceInLeft tada right">
-            <span class='messages message_u'>Alaf</span>
-            <span class='messages message_ts'>12:10 PM</span>
-            <span class='messages message_t width-200 right'>Hello my name is alaf</span>
-        </li>
-        <li class="message_li animated bounceInLeft tada">
-            <span class='messages message_u'>Alaf</span>
-            <span class='messages message_ts'>12:10 PM</span>
-            <span class='messages message_t width-200'>Hello my name is alaf</span>
-        </li>
-    <!-- </ul> -->
-  <div class="container">
-    <form action="">
-      <div class='row'>
-        <div class='input-field col s6'>
-        <textarea id="m" > </textarea> 
-
-        </div> 
-          <button class=" btn-large waves-effect waves-light teal lighten-1">Send</button>
-      </div>
-    </form>
-  </div>
-  <!-- container -->
+    <div id="modal2" class="modal bottom-sheet">
+        <div class="modal-content">
+            <h4>Modal Header</h4>
+            <p>A bunch of text</p>
+        </div>
+    </div>
 </body>
 <script src='http://code.jquery.com/jquery-1.11.1.js'></script>
-
-
-
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
 <script>
- (function (argument) {
-     $('.button').mousedown(function (e) {
-      var target = e.target;
-      var rect = target.getBoundingClientRect();
-      var ripple = target.querySelector('.ripple');
-      $(ripple).remove();
-      ripple = document.createElement('span');
-      ripple.className = 'ripple';
-      ripple.style.height = ripple.style.width = Math.max(rect.width, rect.height) + 'px';
-      target.appendChild(ripple);
-      var top = e.pageY - rect.top - ripple.offsetHeight / 2 -  document.body.scrollTop;
-      var left = e.pageX - rect.left - ripple.offsetWidth / 2 - document.body.scrollLeft;
-      ripple.style.top = top + 'px';
-      ripple.style.left = left + 'px';
-      return false;
+(function(argument) {
+    $('.button').mousedown(function(e) {
+        var target = e.target;
+        var rect = target.getBoundingClientRect();
+        var ripple = target.querySelector('.ripple');
+        $(ripple).remove();
+        ripple = document.createElement('span');
+        ripple.className = 'ripple';
+        ripple.style.height = ripple.style.width = Math.max(rect.width, rect.height) + 'px';
+        target.appendChild(ripple);
+        var top = e.pageY - rect.top - ripple.offsetHeight / 2 - document.body.scrollTop;
+        var left = e.pageX - rect.left - ripple.offsetWidth / 2 - document.body.scrollLeft;
+        ripple.style.top = top + 'px';
+        ripple.style.left = left + 'px';
+        return false;
     });
- })();
-
+})();
 </script>
+
 </html>
 <!-- made by Alaf azam khan -->

@@ -58,31 +58,34 @@
             return;
 
         var d = new Date();
-        var current_time = d.getHours()+":"+d.getMinutes();
+        var current_time =  (d.getHours()< 10 ? "0" + d.getHours():d.getHours()) + ":" + 
+                            (d.getMinutes() < 10 ? "0" + d.getMinutes(): d.getMinutes() ) + " " + 
+                            (d.getHours()< 12 ? "AM": "PM");
         var li = document.createElement("li");
 
-        classie.add(li, "message_li animated");
+        classie.add(li, "row message_li animated bounceInLeft tada col s6");
 
         var message_u = document.createElement("span");
         message_u.appendChild(document.createTextNode(data.username));
-        classie.add(message_u, "messages message_u");
+        classie.add(message_u, "col s10 message_u");
 
         var message_ts = document.createElement("span");
         message_ts.appendChild(document.createTextNode(current_time));
-        classie.add(message_ts, "messages message_ts");
+        classie.add(message_ts, "col s2 message_ts");
 
         var message_t = document.createElement("span");
         message_t.appendChild(document.createTextNode(data.msg));
         emojify.run(message_t);
-        classie.add(message_t, "messages message_t");
+        classie.add(message_t, "col s8 message_t");
 
         li.appendChild(message_u);
         li.appendChild(message_ts);
         li.appendChild(message_t);
         
         if (data.username == global_username) {
-            classie.add(li, "zoomInLeft _right");
-            classie.add(message_t, "_right");
+            classie.add(li, "zoomInLeft offset-s6");
+            classie.add(message_t, "offset-s4 right-align");
+            classie.add(message_u,"right-align")
         }else{
             classie.add(li, "zoomInRight");
         }
