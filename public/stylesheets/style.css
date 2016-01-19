@@ -81,10 +81,8 @@ footer.page-footer{
 }
 
 .message_t {
+    overflow-wrap: break-word; 
     /*background-color: #cdab32;*/
-    display: table;
-    padding-top: 0px;
-    text-align: left;
 }
 
 .message_u {

@@ -63,11 +63,11 @@
                             (d.getHours()< 12 ? "AM": "PM");
         var li = document.createElement("li");
 
-        classie.add(li, "row message_li animated bounceInLeft tada col s6");
+        classie.add(li, "row message_li animated bounceInLeft tada col s7");
 
         var message_u = document.createElement("span");
         message_u.appendChild(document.createTextNode(data.username));
-        classie.add(message_u, "col s10 message_u");
+        classie.add(message_u, "col message_u");
 
         var message_ts = document.createElement("span");
         message_ts.appendChild(document.createTextNode(current_time));
@@ -83,9 +83,9 @@
         li.appendChild(message_t);
         
         if (data.username == global_username) {
-            classie.add(li, "zoomInLeft offset-s6");
+            classie.add(li, "zoomInLeft offset-s5");
             classie.add(message_t, "offset-s4 right-align");
-            classie.add(message_u,"right-align")
+            classie.add(message_u,"s10 right-align")
         }else{
             classie.add(li, "zoomInRight");
         }
