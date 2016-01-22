@@ -69,6 +69,9 @@ exports.userConnection = function(socket) {
 
 
     socket.on('disconnect', function() {
+      if(!socket.username)
+        return; 
+      
         console.log(socket.username + ' got disconnected');
         numberOfUsers--;
         socket.broadcast.emit('left', {
