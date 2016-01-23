@@ -1,11 +1,12 @@
 
-/*
- * GET home page.
- */
-
 
 var random_names = require('../random_names');
+var express = require('express');
+var router = express.Router();
 
-exports.index = function(req, res){
+/* GET home page. */
+router.get('/', function(req, res, next) {
   res.render('index',{name: random_names()});
-};
+});
+
+module.exports = router;
