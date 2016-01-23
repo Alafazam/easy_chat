@@ -5,29 +5,36 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var http = require('http');
+var config = require('./config');
+
+
+// session
+var session = require("express-session")(config.session);
+var sharedsession = require("express-socket.io-session");
 
 
 
+
+
+
+// imports for routes
 var routes = require('./routes/index');
 var user = require('./routes/user');
 var chatroom = require('./routes/chatroom');
-// var profile = require('routes/profile');
-
 var connection = require('./connection');
-// var rooms = require('./rooms');
 
-var server_port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
-var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 
 var app = express();
 
-// all environments
-app.set('port', server_port || process.env.PORT || 3000);
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+// port
+app.set('port', config.server_port);
 
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
@@ -38,21 +45,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 
-// app.locals.rooms = ["one","two"];
 
-app.set("rooms",["one","two"]);
+// app.set("rooms",["one","two"]);
 
 app.get('/', routes);
 app.use('/chatroom', chatroom);
 
-
-// app.get('/chatroom/list', chatroom.chatroom);
-
-// app.get('/chatroom/:roomName', chatroom.chatroom);
-
-
-
-// app.get('/users', user.list);
+app.locals.rooms = ["default","bogie"];
 
 
 // catch 404 and forward to error handler
@@ -96,8 +95,8 @@ var numberOfUsers = 0;
 
 
 
-server.listen(server_port, server_ip_address, function () {
-  console.log( "Listening on " + server_ip_address + ", server_port " + server_port );
+server.listen(config.server_port, config.server_ip_address, function () {
+  console.log( "Listening on " + config.server_ip_address + ", server_port " + config.server_port );
 });
 
 io.on('connection',connection.userConnection);

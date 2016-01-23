@@ -38,9 +38,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 
-// app.locals.rooms = ["one","two"];
-
-app.set("rooms",["one","two"]);
+app.locals.rooms = ["one","two"];
 
 app.get('/', routes);
 app.use('/chatroom', chatroom);
