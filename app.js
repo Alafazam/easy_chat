@@ -6,14 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var http = require('http');
 var config = require('./config');
-
-
-// session
+var ios = require('socket.io-express-session');
 var session = require("express-session")(config.session);
-var sharedsession = require("express-socket.io-session");
-
-
-
 
 
 
@@ -23,6 +17,8 @@ var user = require('./routes/user');
 var chatroom = require('./routes/chatroom');
 var connection = require('./connection');
 
+
+// session
 
 var app = express();
 
@@ -42,7 +38,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(session);
 
 
 
@@ -100,6 +96,8 @@ server.listen(config.server_port, config.server_ip_address, function () {
 });
 
 io.on('connection',connection.userConnection);
+io.use(ios(session));
+
 
 
 // rooms.P();

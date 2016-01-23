@@ -1,101 +1,172 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var http = require('http');
+var _ = require('lodash');
 
-
-
-var routes = require('./routes/index');
-var user = require('./routes/user');
-var chatroom = require('./routes/chatroom');
-// var profile = require('routes/profile');
-
-var connection = require('./connection');
-// var rooms = require('./rooms');
-
-var server_port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
-var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
-
-var app = express();
-
-// all environments
-app.set('port', server_port || process.env.PORT || 3000);
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
-
-
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
-
-
-app.locals.rooms = ["one","two"];
-
-app.get('/', routes);
-app.use('/chatroom', chatroom);
-
-
-// app.get('/chatroom/list', chatroom.chatroom);
-
-// app.get('/chatroom/:roomName', chatroom.chatroom);
-
-
-
-// app.get('/users', user.list);
-
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
-
-// error handlers
-
-// development error handler
-// will print stacktrace
-if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err
-    });
-  });
-}
-
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
-});
-
-
-
-
-var server = http.createServer(app)
-var io = require("socket.io").listen(server);
-var connections = [];
+var connectionList = [];
 var numberOfUsers = 0;
+var running_session = [];
+
+
+exports.userConnection = function(socket) {
+    numberOfUsers++;
+    socket.username = '';
+
+    if (_.contains(running_session, socket.handshake.session.id)) { //  make user tell his name 
+        var sess = socket.handshake.session;
+        console.log("Session recoverd with id: " + sess.id + " and username: " + sess.username);
+
+        if (!sess.windowOpen) {
+            sess.uid = Date.now();
+            sass.windowOpen = true;
+
+            // notify others
+            socket.broadcast.emit('back', {
+                username: sess.username
+            });
+
+        }
+
+        socket.username = sess.username;
+
+        // send username to client
+        socket.emit('his username is', {
+            'username': sess.username
+        });
+
+
+        // save connection in list 
+        connectionList.push({
+            username: socket.username,
+            id: socket.id,
+            sessId: sess.id,
+            windowOpen: true,
+            tStamp: sess.uid
+        });
+
+
+        // update
+        sess.save();
+
+    } else {
+
+        socket.emit('request login', {
+            'id': socket.id
+        });
+
+        // console.log(socket.handshake.session.id);
+        console.log("session does not exists, ask user for new name");
+    }
+
+
+    // when we know who use is
+    socket.on('username', function(data) {
+        if (socket.handshake.session.username)
+            return; //session exsits.
+
+        var sess = socket.handshake.session;
+        var username = data.username;
+        console.log(username);
+
+        // if name exit again ask for a new name
+        if (_.some(connectionList, function(item) {
+                return item.username == username
+            }))
+            socket.emit('request login', {
+                exists: true
+            });
+
+
+        socket.username = username;
+
+        connectionList.push({
+            username: socket.username,
+            id: socket.id,
+            sess: sess.id,
+            windowOpen: true,
+            tStamp: sess.uid
+        });
+
+
+        if (sess.windowOpen)
+            return;
+
+
+        sess.windowOpen = true;
+        sess.uid = Date.now();
+        sess.username = username;
+
+        running_session.push(socket.handshake.session.id);
+
+        // notify others
+        socket.broadcast.emit('joined', {
+            username: socket.username
+        });
+
+        // update
+        sess.save();
+    });
+
+    socket.on('message', function(msg) {
+        if (!socket.handshake.session.username) {
+            console.log("session does not exsits");
+            console.log(socket.handshake.session);
+            return; //session exsits.
+        }
+        // console.log(msg);
+
+
+        socket.broadcast.emit('message', {
+            'username': socket.username,
+            'msg': msg
+        });
+
+        socket.emit('message', {
+            'username': socket.username,
+            'msg': msg
+        });
+
+        // console.log(socket.username + ' said ' + msg);
+    });
+
+    socket.on('start typing', function(msg) {
+        if (!socket.handshake.session.uid)
+            return;
+
+        socket.broadcast.emit('typing', {
+            'username': msg.username,
+            'id': msg.id
+        });
+
+        console.log(msg.username + ' is typing');
+    });
 
 
 
-server.listen(server_port, server_ip_address, function () {
-  console.log( "Listening on " + server_ip_address + ", server_port " + server_port );
-});
 
-io.on('connection',connection.userConnection);
+
+    socket.on('disconnect', function() {
+        if (!socket.username)
+            return;
+
+        // if (!socket.handshake.session.id)
+        // return;
+
+        // console.log(socket.username + ' got disconnected');
+        numberOfUsers--;
+
+        socket.broadcast.emit('left', {
+            username: socket.username
+        });
+
+        _.pull(connectionList, {
+            username: socket.username,
+            id: socket.id,
+            sess: socket.handshake.session.id
+        });
+
+        // _.pull(running_session, socket.handshake.session.id);
+        // console.log("Session destroyed with uid: " + sess.uid + " and username: " + username);
+        // socket.handshake.session.destroy();
+
+    });
+
+
+};

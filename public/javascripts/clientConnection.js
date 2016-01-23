@@ -20,9 +20,8 @@
     }
 
 
-  // TODO ask username using modal window.
-    function getUsername() {
-    }
+    // TODO ask username using modal window.
+    function getUsername() {}
 
     function validateUsername(username) {
         if (username && username.length > 2 && username.length <= 15 && username != '' && /^[a-zA-Z_]+$/.test(username))
@@ -44,23 +43,22 @@
 
         var message = escapeHtml($('#m').val());
 
+        socket.emit('message', message);
 
-
-
-        socket.emit('message',message);
-        
         $('#m').val('');
         return false;
     });
 
+
     socket.on('message', function(data) {
-        if(!loggedIn)
+        if (!loggedIn)
             return;
+        console.log("message recieved");
 
         var d = new Date();
-        var current_time =  (d.getHours()< 10 ? "0" + d.getHours():d.getHours()) + ":" + 
-                            (d.getMinutes() < 10 ? "0" + d.getMinutes(): d.getMinutes() ) + " " + 
-                            (d.getHours()< 12 ? "AM": "PM");
+        var current_time = (d.getHours() < 10 ? "0" + d.getHours() : d.getHours()) + ":" +
+            (d.getMinutes() < 10 ? "0" + d.getMinutes() : d.getMinutes()) + " " +
+            (d.getHours() < 12 ? "AM" : "PM");
         var li = document.createElement("li");
 
         classie.add(li, "row message_li animated bounceInLeft tada col s7");
@@ -81,43 +79,61 @@
         li.appendChild(message_u);
         li.appendChild(message_ts);
         li.appendChild(message_t);
-        
+
         if (data.username == global_username) {
             classie.add(li, "zoomInLeft offset-s5");
             classie.add(message_t, "offset-s4 right-align");
-            classie.add(message_u,"s10 right-align")
-        }else{
+            classie.add(message_u, "s10 right-align")
+        } else {
             classie.add(li, "zoomInRight");
         }
 
         message_window.appendChild(li);
 
-        $("html, body").animate({ scrollTop: $(document).height()}, 100);
+        $("html, body").animate({
+            scrollTop: $(document).height()
+        }, 100);
     });
 
     socket.on('joined', function(data) {
-        if(!loggedIn)
+        if (!loggedIn)
             return;
-         Materialize.toast(data.username + " has joined.", 2000);
+        Materialize.toast(data.username + " has joined.", 2000);
     });
+
+    socket.on('back', function(data) {
+        if (!loggedIn)
+            return;
+        Materialize.toast(data.username + " is back.", 2000);
+    });
+
 
     // socket.on('left', function(data) {
     //      Materialize.toast(data.username + " has left.", 4000);
     // });
 
     socket.on('request login', function(data) {
-        if(loggedIn)
+        if (loggedIn)
             return;
 
         $('#modal1').openModal({
             dismissible: false,
-            complete: function() { 
+            complete: function() {
                 global_username = escapeHtml($('#username.validate')[0].value);
-                socket.emit('username', {username: global_username});
+                
+                socket.emit('username', {
+                    username: global_username
+                });
                 loggedIn = true;
+                console.log("looged int");
             }
         });
+    });
 
+    socket.on('his username is', function(data) {
+        global_username = data.username;
+        loggedIn = true;
+        console.log("retrived username from exsiting sesison");
     });
 
 
