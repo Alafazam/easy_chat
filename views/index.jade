@@ -1,5 +1,8 @@
 extends layout
 
+block head_block
+  title
+   |Easy Chat
 
 block content
   div(class="container")
@@ -10,13 +13,11 @@ block content
       h5(class="header col s12 light")
         |A modern chatting app based on NodeJs and SocketIo
     div(class="row center")
-      a(href="/chatroom", id="download-button",class="btn-large waves-effect waves-light teal lighten-1")
-       |Get Started
+      a(href="/chatroom", class="btn-large waves-effect waves-light")
+        |Get Started
 
 block footer
   script(src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.7/socket.io.js')
   script(src='http://code.jquery.com/jquery-1.11.1.js')
-  script(src='/javascripts/classie.js')
-  script(src='/javascripts/clientConnection.js')
-  script(src='https://cdn.rawgit.com/wavded/humane-js/master/humane.min.js')
-  script(src='/javascripts/button.js')
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js")
+          

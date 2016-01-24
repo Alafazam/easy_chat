@@ -6,10 +6,6 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
 	console.log(req.app.locals.rooms);
     res.render('chatroom',{name: random_names()});
-
-    
-
-
 });
 
 
