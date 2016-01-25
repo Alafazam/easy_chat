@@ -33,7 +33,18 @@
 
 
     var global_username = '';
-    var socket = io();
+    var namespace = ":"+ window.location.port + '/';
+    var paths = window.location.pathname.split('/');
+    
+    if(paths.length === 3){
+        namespace += paths[2];
+    }
+    var socket = io(namespace);
+    // var socket = io('/bogie');
+    // var socket = io(':8080/');
+    // console.log(io);
+    console.log("connnected to namespace: " + namespace);
+
     var id = null;
 
     var message_window = document.getElementById('messages-window');

@@ -94,9 +94,17 @@ var numberOfUsers = 0;
 server.listen(config.server_port, config.server_ip_address, function () {
   console.log( "Listening on " + config.server_ip_address + ", server_port " + config.server_port );
 });
+io.use(ios(session));
+
+
 
 io.on('connection',connection.userConnection);
-io.use(ios(session));
+
+var nsp = io.of('/bogie');
+nsp.on('connection', function(socket){
+  console.log('someone connected');
+});
+nsp.emit('hi', 'everyone!');
 
 
 
