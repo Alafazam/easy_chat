@@ -100,11 +100,11 @@ io.use(ios(session));
 
 io.on('connection',connection.userConnection);
 
-var nsp = io.of('/bogie');
-nsp.on('connection', function(socket){
-  console.log('someone connected');
-});
-nsp.emit('hi', 'everyone!');
+// var nsp = io.of('/bogie');
+// nsp.on('connection', function(socket){
+//   console.log('someone connected');
+// });
+// nsp.emit('hi', 'everyone!');
 
 
 

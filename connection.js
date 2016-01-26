@@ -4,10 +4,12 @@ var connectionList = [];
 var numberOfUsers = 0;
 var running_session = [];
 
+// var nsp = io.of('/namespace');
 
 exports.userConnection = function(socket) {
     numberOfUsers++;
     socket.username = '';
+    socket.join("bogie");
 
     if (_.contains(running_session, socket.handshake.session.id)) { //  make user tell his name 
         var sess = socket.handshake.session;

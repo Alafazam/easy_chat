@@ -1,6 +1,21 @@
 (function() {
     var loggedIn = false;
 
+    var colors = ["red","pink","purple","deep-purple","indigo","blue","light-blue","cyan","teal","green","light-green","lime","yellow","amber","orange","deep-orange"];
+    
+    function getColor () {
+        var color = colors[Math.floor(Math.random() * colors.length)];
+        var shade = " darken-" + getColorShade();
+        return color + shade; 
+    }
+    function getColorShade (argument) {
+        return Math.floor(Math.random() * 3) + 1;
+    }
+    var userColors = [];
+    
+    function genrateColor (username) {
+        userColors[username] = getColor();
+    }
 
     // $('.modal-trigger').leanModal();
 
@@ -66,6 +81,8 @@
             return;
         console.log("message recieved");
 
+        var colr = userColors[data.username];
+
         var d = new Date();
         var current_time = (d.getHours() < 10 ? "0" + d.getHours() : d.getHours()) + ":" +
             (d.getMinutes() < 10 ? "0" + d.getMinutes() : d.getMinutes()) + " " +
@@ -86,7 +103,7 @@
         message_t.appendChild(document.createTextNode(data.msg));
         emojify.run(message_t);
         classie.add(message_t, "col s8 message_t");
-
+        // + " " + colr
         li.appendChild(message_u);
         li.appendChild(message_ts);
         li.appendChild(message_t);
@@ -110,6 +127,7 @@
         if (!loggedIn)
             return;
         Materialize.toast(data.username + " has joined.", 2000);
+        genrateColor(data.username);
     });
 
     socket.on('back', function(data) {
