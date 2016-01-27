@@ -12,16 +12,20 @@ function Room (owner,params) {
 	console.log('new room');
 	// todo add a random url here
 	
-	this.id = params.id || makeid() ;
+	sthis.id = params.id || makeid() ;
+	
 	this.name = params.name || owner.name + "'s room";
+	
 	this.url = '';
-	room.push(this);
 	
 	this.owner = owner.id;
-	this.member = [];
-	this.member.push(owner.id);
+	this.members = [];
+	
+	this.members.push(owner.id);
 	
 	this.usersConnected = 1;
+	
+	rooms.push(this);
 
 }
 

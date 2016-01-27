@@ -1,61 +1,67 @@
 var _ = require('lodash');
+var User = require('./user');
+
 
 var connectionList = [];
 var numberOfUsers = 0;
 var running_session = [];
+
 
 // var nsp = io.of('/namespace');
 
 exports.userConnection = function(socket) {
     numberOfUsers++;
     socket.username = '';
-    socket.join("bogie");
+    // socket.join("bogie");
 
-    if (_.contains(running_session, socket.handshake.session.id)) { //  make user tell his name 
-        var sess = socket.handshake.session;
-        console.log("Session recoverd with id: " + sess.id + " and username: " + sess.username);
-
-        if (!sess.windowOpen) {
-            sess.uid = Date.now();
-            sass.windowOpen = true;
-
-            // notify others
-            socket.broadcast.emit('back', {
-                username: sess.username
-            });
-
-        }
-
-        socket.username = sess.username;
-
-        // send username to client
-        socket.emit('his username is', {
-            'username': sess.username
-        });
+    user = new User(socket);
 
 
-        // save connection in list 
-        connectionList.push({
-            username: socket.username,
-            id: socket.id,
-            sessId: sess.id,
-            windowOpen: true,
-            tStamp: sess.uid
-        });
+
+    // if (_.contains(running_session, socket.handshake.session.id)) { //  make user tell his name 
+    //     var sess = socket.handshake.session;
+    //     console.log("Session recoverd with id: " + sess.id + " and username: " + sess.username);
+
+    //     if (!sess.windowOpen) {
+    //         sess.uid = Date.now();
+    //         sass.windowOpen = true;
+
+    //         // notify others
+    //         socket.broadcast.emit('back', {
+    //             username: sess.username
+    //         });
+
+    //     }
+
+    //     socket.username = sess.username;
+
+    //     // send username to client
+    //     socket.emit('his username is', {
+    //         'username': sess.username
+    //     });
 
 
-        // update
-        sess.save();
+    //     // save connection in list 
+    //     connectionList.push({
+    //         username: socket.username,
+    //         id: socket.id,
+    //         sessId: sess.id,
+    //         windowOpen: true,
+    //         tStamp: sess.uid
+    //     });
 
-    } else {
 
-        socket.emit('request login', {
-            'id': socket.id
-        });
+    //     // update
+    //     sess.save();
 
-        // console.log(socket.handshake.session.id);
-        console.log("session does not exists, ask user for new name");
-    }
+    // } else {
+
+	user.emit('request login', {
+		'id': socket.id
+	});
+
+    console.log("session does not exists, ask user for new name");
+    // }
 
 
     // when we know who use is
@@ -141,9 +147,6 @@ exports.userConnection = function(socket) {
     });
 
 
-
-
-
     socket.on('disconnect', function() {
         if (!socket.username)
             return;
@@ -167,7 +170,6 @@ exports.userConnection = function(socket) {
         // _.pull(running_session, socket.handshake.session.id);
         // console.log("Session destroyed with uid: " + sess.uid + " and username: " + username);
         // socket.handshake.session.destroy();
-
     });
 
 
