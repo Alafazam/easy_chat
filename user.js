@@ -1,4 +1,4 @@
-// user.js
+var _ = require('lodash');
 
 var connectionList = [];
 var numberOfUsers = 0;
@@ -10,6 +10,12 @@ var User = function(socket) {
     this._socket = socket;
     this.id = socket.id;
     this.name = '';
+    this.session = socket.handshake.session;
+
+
+    this.rooms = [];
+    this.connectionList = [];
+    this.currentroom = this.id;
 
     for (var t in socket) {
         this[t] = socket[t];
@@ -23,22 +29,69 @@ User.prototype.emit = function(event, data) {
 }
 
 User.prototype.broadcast = function(event, data) {
-    event = event || 'message';
+    if (!data) {
+        data = event;
+        event = "message";
+    }
     this._socket.broadcast.emit(event, data);
 }
 
-User.prototype.setUsername = function(data) {
-    // this.name = data.username;
-    // this.broadcast('notify user joined', {
-    //     username: this.name,
-    //     timestamp: 'random time'
-    // });
+User.prototype.notifyClient = function() {
+    this.emit("his username is", {
+        'username': this.name
+    })
+};
 
-    if (this.handshake.session.username)
+User.prototype.joinRoom = function(room) {
+    this.currentroom = room;
+    this._socket.join(room);
+};
+
+User.prototype.createSession = function(data) {
+    if (!_.contains(running_session, this.session.id)) {
+        this.emit('request login', {
+            'id': this.id
+        });
+        console.log("Request login");
+        return;
+    }
+    if (this.session.windowOpen) {
+        // already opened in another window.
+        // so dont assing him anything.
+        // just send username to client
+        this.notifyClient();
+        this.broadcast('back', {
+            username: this.name
+        });
+        return;
+    }
+    // restore session
+    this.session.uid = Date.now();
+    this.session.windowOpen = true;
+    this.name = this.session.username;
+    this.notifyClient();
+    // save connection in list 
+    connectionList.push({
+        username: this.name,
+        id: user.id,
+        sessId: sess.id,
+        windowOpen: true,
+        tStamp: sess.uid
+    });
+    // update
+    sess.save();
+    console.log("session recovered for " + this.name);
+};
+
+
+
+
+User.prototype.setUsername = function(data) {
+    if (this.session.username)
         return; //session exsits.
 
-    var sess = this.handshake.session;
-    var username = data.username;
+    var sess = this.session;
+    this.name = data.username;
     console.log(username);
 
     // if name exit again ask for a new name
@@ -49,8 +102,8 @@ User.prototype.setUsername = function(data) {
             exists: true
         });
 
-
     this.username = username;
+
 
     connectionList.push({
         username: this.username,
@@ -85,15 +138,15 @@ User.prototype.setUsername = function(data) {
 };
 
 User.prototype.__init__ = function() {
-    this.on('username', (function (data) {
+    this.on('username', (function(data) {
         this.setUsername(data);
     }).bind(this));
 
-    this.on('message', (function (data) {
+    this.on('message', (function(data) {
         this.broadcast(data);
     }).bind(this));
 
-    this.on('disconnect', (function (data) {
+    this.on('disconnect', (function(data) {
         this.disconnect(data);
     }).bind(this));
 };

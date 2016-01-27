@@ -16,101 +16,55 @@ exports.userConnection = function(socket) {
 
     user = new User(socket);
 
+    if (_.contains(running_session, user.handshake.session.id)) { //  make user tell his name 
+        var sess = user.handshake.session;
+        console.log("Session recoverd with id: " + sess.id + " and username: " + sess.username);
 
+        if (!sess.windowOpen) {
+            sess.uid = Date.now();
+            sass.windowOpen = true;
 
-    // if (_.contains(running_session, socket.handshake.session.id)) { //  make user tell his name 
-    //     var sess = socket.handshake.session;
-    //     console.log("Session recoverd with id: " + sess.id + " and username: " + sess.username);
-
-    //     if (!sess.windowOpen) {
-    //         sess.uid = Date.now();
-    //         sass.windowOpen = true;
-
-    //         // notify others
-    //         socket.broadcast.emit('back', {
-    //             username: sess.username
-    //         });
-
-    //     }
-
-    //     socket.username = sess.username;
-
-    //     // send username to client
-    //     socket.emit('his username is', {
-    //         'username': sess.username
-    //     });
-
-
-    //     // save connection in list 
-    //     connectionList.push({
-    //         username: socket.username,
-    //         id: socket.id,
-    //         sessId: sess.id,
-    //         windowOpen: true,
-    //         tStamp: sess.uid
-    //     });
-
-
-    //     // update
-    //     sess.save();
-
-    // } else {
-
-	user.emit('request login', {
-		'id': socket.id
-	});
-
-    console.log("session does not exists, ask user for new name");
-    // }
-
-
-    // when we know who use is
-    socket.on('username', function(data) {
-        if (socket.handshake.session.username)
-            return; //session exsits.
-
-        var sess = socket.handshake.session;
-        var username = data.username;
-        console.log(username);
-
-        // if name exit again ask for a new name
-        if (_.some(connectionList, function(item) {
-                return item.username == username
-            }))
-            socket.emit('request login', {
-                exists: true
+            // notify others
+            user.broadcast.emit('back', {
+                username: sess.username
             });
 
+        }
 
-        socket.username = username;
+        user.username = sess.username;
 
+        // send username to client
+        user.emit('his username is', {
+            'username': sess.username
+        });
+
+
+        // save connection in list 
         connectionList.push({
-            username: socket.username,
-            id: socket.id,
-            sess: sess.id,
+            username: user.username,
+            id: user.id,
+            sessId: sess.id,
             windowOpen: true,
             tStamp: sess.uid
         });
 
 
-        if (sess.windowOpen)
-            return;
-
-
-        sess.windowOpen = true;
-        sess.uid = Date.now();
-        sess.username = username;
-
-        running_session.push(socket.handshake.session.id);
-
-        // notify others
-        socket.broadcast.emit('joined', {
-            username: socket.username
-        });
-
         // update
         sess.save();
-    });
+
+    } else {
+
+        user.emit('request login', {
+            'id': user.id
+        });
+
+        console.log("session does not exists, ask user for new name");
+    }
+
+
+    // when we know who use is
+    // socket.on('username', function(data) {
+    // });
 
     socket.on('message', function(msg) {
         if (!socket.handshake.session.username) {
