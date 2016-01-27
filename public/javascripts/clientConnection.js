@@ -1,19 +1,20 @@
 (function() {
     var loggedIn = false;
 
-    var colors = ["red","pink","purple","deep-purple","indigo","blue","light-blue","cyan","teal","green","light-green","lime","yellow","amber","orange","deep-orange"];
-    
-    function getColor () {
+    var colors = ["red", "pink", "purple", "deep-purple", "indigo", "blue", "light-blue", "cyan", "teal", "green", "light-green", "lime", "yellow", "amber", "orange", "deep-orange"];
+
+    function getColor() {
         var color = colors[Math.floor(Math.random() * colors.length)];
         var shade = " darken-" + getColorShade();
-        return color + shade; 
+        return color + shade;
     }
-    function getColorShade (argument) {
+
+    function getColorShade(argument) {
         return Math.floor(Math.random() * 3) + 1;
     }
     var userColors = [];
-    
-    function genrateColor (username) {
+
+    function genrateColor(username) {
         userColors[username] = getColor();
     }
 
@@ -35,9 +36,6 @@
     }
 
 
-    // TODO ask username using modal window.
-    function getUsername() {}
-
     function validateUsername(username) {
         if (username && username.length > 2 && username.length <= 15 && username != '' && /^[a-zA-Z_]+$/.test(username))
             return true;
@@ -48,10 +46,10 @@
 
 
     var global_username = '';
-    var namespace = ":"+ window.location.port + '/';
+    var namespace = ":" + window.location.port + '/';
     var paths = window.location.pathname.split('/');
-    
-    if(paths.length === 3){
+
+    if (paths.length === 3) {
         namespace += paths[2];
     }
     var socket = io(namespace);
@@ -145,24 +143,24 @@
         if (loggedIn)
             return;
 
+        if (data.exist) {
+            $('#question').text("This username exist !!");
+        }
+
         $('#modal1').openModal({
             dismissible: false,
             complete: function() {
-                global_username = escapeHtml($('#username.validate')[0].value);
-                
                 socket.emit('username', {
                     username: global_username
                 });
-                loggedIn = true;
-                console.log("looged int");
             }
         });
     });
 
-    socket.on('his username is', function(data) {
+    socket.on('username', function(data) {
+        // global_username = escapeHtml($('#username.validate')[0].value);
         global_username = data.username;
         loggedIn = true;
-        console.log("retrived username from exsiting sesison");
     });
 
 

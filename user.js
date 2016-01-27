@@ -3,7 +3,7 @@ var _ = require('lodash');
 var connectionList = [];
 var numberOfUsers = 0;
 var running_session = [];
-
+var usernamesOccupied = [];
 
 
 var User = function(socket) {
@@ -36,10 +36,10 @@ User.prototype.broadcast = function(event, data) {
     this._socket.broadcast.emit(event, data);
 }
 
-User.prototype.notifyClient = function() {
-    this.emit("his username is", {
+User.prototype.notifyClient = function(msg) {
+    this.emit(msg, {
         'username': this.name
-    })
+    });
 };
 
 User.prototype.joinRoom = function(room) {
@@ -47,7 +47,9 @@ User.prototype.joinRoom = function(room) {
     this._socket.join(room);
 };
 
-User.prototype.createSession = function(data) {
+
+User.prototype.checkSession = function(data) {
+    // check if session is present
     if (!_.contains(running_session, this.session.id)) {
         this.emit('request login', {
             'id': this.id
@@ -55,22 +57,51 @@ User.prototype.createSession = function(data) {
         console.log("Request login");
         return;
     }
-    if (this.session.windowOpen) {
+    // so session is runnning.
+    this.sessionInit({restore: true});    
+    
+    if (this.session.sockets.length > 1) {
         // already opened in another window.
-        // so dont assing him anything.
         // just send username to client
-        this.notifyClient();
         this.broadcast('back', {
             username: this.name
         });
         return;
     }
-    // restore session
+    console.log("session restored for " + this.name);
+};
+
+User.prototype.setUsername = function(data) {
+    if (this.session.username)
+        return; //session exsits.
+    // if name exit again ask for a new name
+    if (nameExists(data.name)) {
+        this.emit('request login', {
+            exists: true
+        });
+        return;
+    }
+    this.name = username;
+    this.session.sockets = [];
+    this.sessionInit();
+};
+
+User.prototype.sessionInit = function(param) {
+
+    if(!param.restore){
+        // create new
+        running_session.push(this.session.id);
+        this.broadcast('joined', {
+            username: this.name
+        });
+    }
+
     this.session.uid = Date.now();
     this.session.windowOpen = true;
-    this.name = this.session.username;
-    this.notifyClient();
-    // save connection in list 
+    this.session.sockets.push(this.id);
+    
+    this.notifyClient('username');
+
     connectionList.push({
         username: this.name,
         id: user.id,
@@ -79,63 +110,10 @@ User.prototype.createSession = function(data) {
         tStamp: sess.uid
     });
     // update
-    sess.save();
-    console.log("session recovered for " + this.name);
+    this.session.save();
 };
 
 
-
-
-User.prototype.setUsername = function(data) {
-    if (this.session.username)
-        return; //session exsits.
-
-    var sess = this.session;
-    this.name = data.username;
-    console.log(username);
-
-    // if name exit again ask for a new name
-    if (_.some(connectionList, function(item) {
-            return item.username == username
-        }))
-        this.emit('request login', {
-            exists: true
-        });
-
-    this.username = username;
-
-
-    connectionList.push({
-        username: this.username,
-        id: this.id,
-        sess: sess.id,
-        windowOpen: true,
-        tStamp: sess.uid
-    });
-
-
-    if (sess.windowOpen)
-        return;
-
-
-    sess.windowOpen = true;
-    sess.uid = Date.now();
-    sess.username = username;
-
-    running_session.push(this.handshake.session.id);
-
-    // notify others
-    this.broadcast.emit('joined', {
-        username: this.username
-    });
-
-    // update
-    sess.save();
-
-
-
-
-};
 
 User.prototype.__init__ = function() {
     this.on('username', (function(data) {
@@ -160,6 +138,18 @@ User.prototype.disconnect = function() {
 User.prototype.add_to_room = function(room) {
 
 };
+
+
+
+
+function nameExists(name) {
+    // _.some(connectionList, function(item) {return item.username == username})
+    return _.contains(usernamesOccupied, name);
+};
+
+
+
+
 
 
 
