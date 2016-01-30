@@ -1,4 +1,5 @@
 var _ = require('lodash');
+var Room = require ('./rooms');
 
 var connectionList = [];
 var numberOfUsers = 0;
@@ -84,6 +85,7 @@ User.prototype.setUsername = function(data) {
     this.name = username;
     this.session.sockets = [];
     this.sessionInit();
+    this.currentroom = new Room(this);
 };
 
 User.prototype.sessionInit = function(param) {
