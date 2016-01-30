@@ -4,8 +4,6 @@ var connectionList = [];
 var numberOfUsers = 0;
 var running_session = [];
 var usernamesOccupied = [];
-
-
 var User = function(socket) {
     this._socket = socket;
     this.id = socket.id;
