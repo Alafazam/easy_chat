@@ -75,11 +75,11 @@
 
 
     socket.on('message', function(data) {
+        console.log("message recieved");
         if (!loggedIn)
             return;
-        console.log("message recieved");
-
-        var colr = userColors[data.username];
+        console.log(data);
+        // var colr = userColors[data.username];
 
         var d = new Date();
         var current_time = (d.getHours() < 10 ? "0" + d.getHours() : d.getHours()) + ":" +
@@ -150,6 +150,8 @@
         $('#modal1').openModal({
             dismissible: false,
             complete: function() {
+                global_username = escapeHtml($('#username.validate')[0].value);
+                console.log(global_username);
                 socket.emit('username', {
                     username: global_username
                 });
@@ -158,7 +160,6 @@
     });
 
     socket.on('username', function(data) {
-        // global_username = escapeHtml($('#username.validate')[0].value);
         global_username = data.username;
         loggedIn = true;
     });

@@ -1,9 +1,9 @@
 var config = {};
 
 config.session = {
-	secret: process.env.SESSION_SECRET || 'username', 
+	secret: process.env.SESSION_SECRET || 'username',
 	resave: true,
-	saveUninitialized: true 
+	saveUninitialized: true
 }
 
 

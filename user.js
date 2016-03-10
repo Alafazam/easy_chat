@@ -1,5 +1,5 @@
 var _ = require('lodash');
-var Room = require ('./rooms');
+var Room = require('./rooms');
 
 var connectionList = [];
 var numberOfUsers = 0;
@@ -19,7 +19,7 @@ var User = function(socket) {
     for (var t in socket) {
         this[t] = socket[t];
     }
-
+    console.log('calling init');
     this.__init__();
 };
 
@@ -27,18 +27,29 @@ User.prototype.emit = function(event, data) {
     this._socket.emit(event, data);
 }
 
-User.prototype.broadcast = function(event, data) {
-    if (!data) {
-        data = event;
-        event = "message";
-    }
-    this._socket.broadcast.emit(event, data);
+User.prototype.ubroadcast = function(data) {
+    // if (!data) {
+        // data = uevent;
+        // uevent = "message";
+    // }
+    // console.log("sending message");
+    // this._socket.broadcast.emit(uevent, data);
+    this._socket.broadcast.emit('message', {
+        'username': this.name,
+        'msg': data
+    });
+    this._socket.emit('message', {
+        'username': this.name,
+        'msg': data
+    });
+
 }
 
 User.prototype.notifyClient = function(msg) {
     this.emit(msg, {
         'username': this.name
     });
+    console.log("client notified of name: "+ this.name);
 };
 
 User.prototype.joinRoom = function(room) {
@@ -57,8 +68,10 @@ User.prototype.checkSession = function(data) {
         return;
     }
     // so session is runnning.
-    this.sessionInit({restore: true});    
-    
+    this.sessionInit({
+        restore: true
+    });
+
     if (this.session.sockets.length > 1) {
         // already opened in another window.
         // just send username to client
@@ -80,15 +93,18 @@ User.prototype.setUsername = function(data) {
         });
         return;
     }
-    this.name = username;
+    this.name = data.username;
+    console.log(data.username);
     this.session.sockets = [];
-    this.sessionInit();
-    this.currentroom = new Room(this);
+    this.sessionInit({
+        restore: true
+    });
+    // this.currentroom = new Room(this);
 };
 
 User.prototype.sessionInit = function(param) {
 
-    if(!param.restore){
+    if (!param.restore) {
         // create new
         running_session.push(this.session.id);
         this.broadcast('joined', {
@@ -99,15 +115,14 @@ User.prototype.sessionInit = function(param) {
     this.session.uid = Date.now();
     this.session.windowOpen = true;
     this.session.sockets.push(this.id);
-    
     this.notifyClient('username');
 
     connectionList.push({
         username: this.name,
-        id: user.id,
-        sessId: sess.id,
+        id: this.id,
+        sessId: this.session.id,
         windowOpen: true,
-        tStamp: sess.uid
+        tStamp: this.session.uid
     });
     // update
     this.session.save();
@@ -116,22 +131,24 @@ User.prototype.sessionInit = function(param) {
 
 
 User.prototype.__init__ = function() {
-    this.on('username', (function(data) {
+    this._socket.on('username', (function(data) {
         this.setUsername(data);
+        console.log(data);
     }).bind(this));
 
-    this.on('message', (function(data) {
-        this.broadcast(data);
+    this._socket.on('message', (function(data) {
+        console.log("got a message saying" + data);
+        this.ubroadcast(data);
     }).bind(this));
 
-    this.on('disconnect', (function(data) {
-        this.disconnect(data);
+    this._socket.on('disconnect', (function(data) {
+        this.udisconnect(data);
     }).bind(this));
 };
 
 
-User.prototype.disconnect = function() {
-    this.broadcast();
+User.prototype.udisconnect = function() {
+    // this.broadcast();
 };
 
 
