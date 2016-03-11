@@ -27,10 +27,11 @@
         return div.innerHTML;
     };
 
-    function makeid() {
+    function genhash(length) {
         var text = "";
+        length = length || 10;
         var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_";
-        for (var i = 0; i < 10; i++)
+        for (var i = 0; length < 10; i++)
             text += possible.charAt(Math.floor(Math.random() * possible.length));
         return text;
     }
@@ -64,20 +65,22 @@
     $('form').submit(function() {
         if (!$('#m').val() || $('#m').val() == '')
             return false;
-
         var message = escapeHtml($('#m').val());
 
-        socket.emit('message', message);
+        var data = {
+            'username': global_username,
+            'message': message,
+            'hash': genhash(16)
+        }
 
+        socket.emit('message', data);
+        _onMessage(data);
         $('#m').val('');
         return false;
     });
 
 
-    socket.on('message', function(data) {
-        console.log("message recieved");
-        if (!loggedIn)
-            return;
+    function _onMessage(data){
         console.log(data);
         // var colr = userColors[data.username];
 
@@ -98,7 +101,7 @@
         classie.add(message_ts, "col s2 message_ts");
 
         var message_t = document.createElement("span");
-        message_t.appendChild(document.createTextNode(data.msg));
+        message_t.appendChild(document.createTextNode(data.message));
         emojify.run(message_t);
         classie.add(message_t, "col s8 message_t");
         // + " " + colr
@@ -119,6 +122,13 @@
         $("html, body").animate({
             scrollTop: $(document).height()
         }, 100);
+    }
+
+    socket.on('message', function(data) {
+        console.log("message recieved");
+        if (!loggedIn)
+            return;
+        _onMessage(data);
     });
 
     socket.on('joined', function(data) {

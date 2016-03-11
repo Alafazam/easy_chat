@@ -26,23 +26,20 @@ var User = function(socket) {
 User.prototype.emit = function(event, data) {
     this._socket.emit(event, data);
 }
+User.prototype._broadcast = function(event, data) {
+    this._socket.broadcast.emit(event, data);
+}
 
-User.prototype.ubroadcast = function(data) {
-    // if (!data) {
-        // data = uevent;
-        // uevent = "message";
-    // }
-    // console.log("sending message");
-    // this._socket.broadcast.emit(uevent, data);
-    this._socket.broadcast.emit('message', {
+User.prototype._onMessageRecieved = function(data) {
+    this._broadcast('message', {
         'username': this.name,
-        'msg': data
-    });
-    this._socket.emit('message', {
-        'username': this.name,
-        'msg': data
+        'msg': data.message
     });
 
+    this.emit('recieved', {
+        'username': this.name,
+        'hash': data.hash
+    });
 }
 
 User.prototype.notifyClient = function(msg) {
@@ -75,7 +72,7 @@ User.prototype.checkSession = function(data) {
     if (this.session.sockets.length > 1) {
         // already opened in another window.
         // just send username to client
-        this.broadcast('back', {
+        this._broadcast('back', {
             username: this.name
         });
         return;
@@ -107,7 +104,7 @@ User.prototype.sessionInit = function(param) {
     if (!param.restore) {
         // create new
         running_session.push(this.session.id);
-        this.broadcast('joined', {
+        this._broadcast('joined', {
             username: this.name
         });
     }
@@ -138,7 +135,7 @@ User.prototype.__init__ = function() {
 
     this._socket.on('message', (function(data) {
         console.log("got a message saying" + data);
-        this.ubroadcast(data);
+        this._onMessageRecieved(data);
     }).bind(this));
 
     this._socket.on('disconnect', (function(data) {
@@ -148,7 +145,7 @@ User.prototype.__init__ = function() {
 
 
 User.prototype.udisconnect = function() {
-    // this.broadcast();
+    // this._broadcast();
 };
 
 

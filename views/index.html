@@ -30,7 +30,7 @@
         <br>
     </div>
 </body>
-<script src='http://code.jquery.com/jquery-1.11.1.js'></script>
+<script src='/javascripts/jquery.min.js'></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
 
 <script>
@@ -40,7 +40,7 @@
         var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_";
         for (var i = 0; i < 10; i++)
             text += possible.charAt(Math.floor(Math.random() * possible.length));
-        return text;        
+        return text;
    }
   $('input#username')[0].value = makeid();
 

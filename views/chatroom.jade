@@ -5,7 +5,7 @@ block content
   main
     div(class='container')
       ul(id="messages-window",class="row")
-  
+
   footer(class='page-footer')
     div(class='container')
       form(action="",class="")
@@ -13,9 +13,9 @@ block content
           div(class='col offset-s1 s8 input-feild')
             input(id="m"  autofocus="true"  autocomplete="off",class='messagebox')
 
-          button(class="col s2 btn-large waves-effect waves-light teal lighten-1 messagebox") 
+          button(class="col s2 btn-large waves-effect waves-light teal lighten-1 messagebox")
            |Send
-  
+
   div(id="modal1", class="modal")
     div(class="modal-content")
       h4
@@ -35,9 +35,9 @@ block content
 
 
 block footer
-  script(src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.7/socket.io.js')
-  script(src='http://code.jquery.com/jquery-1.11.1.js')
+  script(src='/javascripts/socket.io.js')
+  script(src='/javascripts/jquery.min.js')
   script(src='/javascripts/classie.js')
-  script(src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js")
+  script(src='/javascripts/materialize.min.js")
   script(src='/javascripts/clientConnection.js')
-  script(src="https://cdn.rawgit.com/Ranks/emojify.js/master/dist/js/emojify.min.js")
+  script(src='/javascripts/emojify.min.js")
