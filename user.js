@@ -33,7 +33,7 @@ User.prototype._broadcast = function(event, data) {
 User.prototype._onMessageRecieved = function(data) {
     this._broadcast('message', {
         'username': this.name,
-        'msg': data.message
+        'message': data.message
     });
 
     this.emit('recieved', {
