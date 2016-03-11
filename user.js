@@ -32,22 +32,14 @@ User.prototype._broadcast = function(event, data) {
 
 User.prototype._onMessageRecieved = function(data) {
     this._broadcast('message', {
-        'username': this.name,
+        'username': data.username,
         'message': data.message
     });
-
     this.emit('recieved', {
-        'username': this.name,
+        'username': data.username,
         'hash': data.hash
     });
 }
-
-User.prototype.notifyClient = function(msg) {
-    this.emit(msg, {
-        'username': this.name
-    });
-    console.log("client notified of name: "+ this.name);
-};
 
 User.prototype.joinRoom = function(room) {
     this.currentroom = room;
@@ -58,10 +50,10 @@ User.prototype.joinRoom = function(room) {
 User.prototype.checkSession = function(data) {
     // check if session is present
     if (!_.contains(running_session, this.session.id)) {
+        console.log("Request login");
         this.emit('request login', {
             'id': this.id
         });
-        console.log("Request login");
         return;
     }
     // so session is runnning.
@@ -69,32 +61,28 @@ User.prototype.checkSession = function(data) {
         restore: true
     });
 
-    if (this.session.sockets.length > 1) {
-        // already opened in another window.
-        // just send username to client
-        this._broadcast('back', {
-            username: this.name
-        });
-        return;
-    }
+    this.emit('welcome back', {
+        'username': this.name
+    });
+    this._broadcast('back', {
+        'username': this.name
+    });
+
     console.log("session restored for " + this.name);
 };
 
 User.prototype.setUsername = function(data) {
-    if (this.session.username)
-        return; //session exsits.
     // if name exit again ask for a new name
-    if (nameExists(data.name)) {
-        this.emit('request login', {
-            exists: true
-        });
+    console.log("nameExists(data.name) " + nameExists(data.username));
+    if (nameExists(data.username)) {
+        this.emit('request login', { exists: true });
         return;
     }
     this.name = data.username;
-    console.log(data.username);
+    usernamesOccupied.push(data.username);
     this.session.sockets = [];
     this.sessionInit({
-        restore: true
+        restore: false
     });
     // this.currentroom = new Room(this);
 };
@@ -107,12 +95,18 @@ User.prototype.sessionInit = function(param) {
         this._broadcast('joined', {
             username: this.name
         });
+        this.session.username = this.name;
+    } else {
+        this.name = this.session.username;
     }
 
     this.session.uid = Date.now();
     this.session.windowOpen = true;
     this.session.sockets.push(this.id);
-    this.notifyClient('username');
+    this.emit('username', {
+        'username': this.name,
+        'users_online': usernamesOccupied
+    });
 
     connectionList.push({
         username: this.name,
@@ -128,13 +122,13 @@ User.prototype.sessionInit = function(param) {
 
 
 User.prototype.__init__ = function() {
-    this._socket.on('username', (function(data) {
+    this._socket.on('setUsername', (function(data) {
         this.setUsername(data);
         console.log(data);
     }).bind(this));
 
     this._socket.on('message', (function(data) {
-        console.log("got a message saying" + data);
+        console.log("got a message saying: " + data.message);
         this._onMessageRecieved(data);
     }).bind(this));
 

@@ -63,6 +63,9 @@
 
     var message_window = document.getElementById('messages-window');
     $('form').submit(function() {
+        if (!loggedIn)
+            return false;
+
         if (!$('#m').val() || $('#m').val() == '')
             return false;
         var message = escapeHtml($('#m').val());
@@ -80,7 +83,7 @@
     });
 
 
-    function _onMessage(data){
+    function _onMessage(data) {
         console.log(data);
         // var colr = userColors[data.username];
 
@@ -125,6 +128,9 @@
     }
 
     socket.on('message', function(data) {
+        if (!loggedIn)
+            return;
+
         console.log("message recieved");
         if (!loggedIn)
             return;
@@ -138,33 +144,23 @@
         genrateColor(data.username);
     });
 
-    socket.on('back', function(data) {
-        if (!loggedIn)
-            return;
-        Materialize.toast(data.username + " is back.", 2000);
-    });
-
-
-    // socket.on('left', function(data) {
-    //      Materialize.toast(data.username + " has left.", 4000);
-    // });
-
     socket.on('request login', function(data) {
         if (loggedIn)
             return;
 
-        if (data.exist) {
-            $('#question').text("This username exist !!");
+        if (data.exists) {
+            $('h4#question').text("This username exist !!, Please Choose Another");
         }
 
         $('#modal1').openModal({
             dismissible: false,
             complete: function() {
-                global_username = escapeHtml($('#username.validate')[0].value);
-                console.log(global_username);
-                socket.emit('username', {
-                    username: global_username
+                _username = escapeHtml($('#username.validate')[0].value);
+                console.log(_username);
+                socket.emit('setUsername', {
+                    username: _username
                 });
+                $("#m").focus();
             }
         });
     });
@@ -172,6 +168,18 @@
     socket.on('username', function(data) {
         global_username = data.username;
         loggedIn = true;
+    });
+    socket.on('welcome back', function(data) {
+        global_username = data.username;
+        loggedIn = true;
+        Materialize.toast('Welcome back ' + data.username, 2000);
+    });
+    socket.on('back', function(data) {
+        if (!loggedIn)
+            return;
+
+        if (global_username != data.username)
+            Materialize.toast(data.username + " is back.", 2000);
     });
 
 
