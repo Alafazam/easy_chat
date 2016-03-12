@@ -127,6 +127,7 @@
 
         var t = $(li)[0];
         // console.log(t);
+        emojify.run(t);
         if (data.username == global_username) {
             classie.add(t, "zoomInLeft offset-s5");
         } else {

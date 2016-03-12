@@ -28,9 +28,10 @@ main {
     flex: 1 0 auto;
 }
 
-footer.page-footer{
-    background-color: #FFFFFF !important ;
+footer.page-footer {
+    background-color: #FFFFFF !important;
 }
+
 .messagebox input {
     background-color: #EFEAE9;
     height: 50px;
@@ -87,6 +88,15 @@ footer.page-footer{
 .card .card-title {
     font-size: 15px;
     font-weight: 300;
+}
+
+.card .card-content {
+    padding: 0px 10px 10px 10px;
+    border-radius: 0 0 2px 2px;
+}
+
+#time {
+    font-size: 12px;
 }
 
 @media only screen and (max-width: 640px) {
