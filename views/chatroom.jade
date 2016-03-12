@@ -41,3 +41,16 @@ block footer
   script(src='/javascripts/materialize.min.js')
   script(src='/javascripts/clientConnection.js')
   script(src='/javascripts/emojify.min.js')
+  script(src='/javascripts/templateParser.js')
+  script(type="text/html",id='messageTemplate')
+    li(class="animated bounceInLeft tada col s6 offset-s6")
+      div(class="card")
+          div(class="card-content")
+              span(class="card-title black-text text-darken-4")
+                <#= username #>
+                span(class='right')
+                  <#= time #>
+              p
+                <#= message #>
+              i(id="done",class="tiny material-icons right hide")
+                |done

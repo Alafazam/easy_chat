@@ -80,20 +80,13 @@ footer.page-footer{
     padding: 5px;
 }
 
-.message_t {
-    overflow-wrap: break-word; 
-    /*background-color: #cdab32;*/
+.card .card-content .card-title {
+    line-height: 30px;
 }
 
-.message_u {
-    /*background-color: green;*/
-}
-
-.message_ts {
-    /*background-color: blue;*/
-    color: blueviolet;
-    font-size: 10px;
-    padding-left: 0px;
+.card .card-title {
+    font-size: 15px;
+    font-weight: 300;
 }
 
 @media only screen and (max-width: 640px) {

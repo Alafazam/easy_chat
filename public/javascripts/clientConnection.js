@@ -91,37 +91,48 @@
         var current_time = (d.getHours() < 10 ? "0" + d.getHours() : d.getHours()) + ":" +
             (d.getMinutes() < 10 ? "0" + d.getMinutes() : d.getMinutes()) + " " +
             (d.getHours() < 12 ? "AM" : "PM");
-        var li = document.createElement("li");
+        // var li = document.createElement("li");
 
-        classie.add(li, "row message_li animated bounceInLeft tada col s7");
+        // classie.add(li, "row message_li animated bounceInLeft tada col s7");
 
-        var message_u = document.createElement("span");
-        message_u.appendChild(document.createTextNode(data.username));
-        classie.add(message_u, "col message_u");
+        // var message_u = document.createElement("span");
+        // var message_a = document.createElement("a");
+        // $(message_a).attr('href',"#");
+        // message_a.appendChild(document.createTextNode(data.username));
+        // message_u.appendChild(message_a);
+        // classie.add(message_u, "col message_u");
 
-        var message_ts = document.createElement("span");
-        message_ts.appendChild(document.createTextNode(current_time));
-        classie.add(message_ts, "col s2 message_ts");
+        // var message_ts = document.createElement("span");
+        // message_ts.appendChild(document.createTextNode(current_time));
+        // classie.add(message_ts, "col s2 message_ts");
 
-        var message_t = document.createElement("span");
-        message_t.appendChild(document.createTextNode(data.message));
-        emojify.run(message_t);
-        classie.add(message_t, "col s8 message_t");
-        // + " " + colr
-        li.appendChild(message_u);
-        li.appendChild(message_ts);
-        li.appendChild(message_t);
+        // var message_t = document.createElement("span");
+        // message_t.appendChild(document.createTextNode(data.message));
+        // emojify.run(message_t);
+        // classie.add(message_t, "col s8 message_t");
+        // // + " " + colr
+        // li.appendChild(message_u);
+        // li.appendChild(message_ts);
+        // li.appendChild(message_t);
 
+
+        // message_window.appendChild(li);
+        var message_window = document.getElementById('messages-window');
+        var li = parseTemplate($("#messageTemplate").html(), {
+            username: data.username,
+            time: current_time,
+            message: data.message
+        });
+
+
+        var t = $(li)[0];
+        // console.log(t);
         if (data.username == global_username) {
-            classie.add(li, "zoomInLeft offset-s5");
-            classie.add(message_t, "offset-s4 right-align");
-            classie.add(message_u, "s10 right-align")
+            classie.add(t, "zoomInLeft offset-s5");
         } else {
-            classie.add(li, "zoomInRight");
+            classie.add(t, "zoomInRight");
         }
-
-        message_window.appendChild(li);
-
+        message_window.appendChild(t);
         $("html, body").animate({
             scrollTop: $(document).height()
         }, 100);
