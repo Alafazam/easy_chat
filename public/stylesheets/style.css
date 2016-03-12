@@ -55,6 +55,10 @@ footer.page-footer {
     margin-left: auto;
 }
 
+.m6{
+    margin-right: 50%;
+}
+
 #messages-window {
     list-style-type: none;
     margin: 0;
