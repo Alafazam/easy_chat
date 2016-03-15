@@ -55,7 +55,7 @@ footer.page-footer {
     margin-left: auto;
 }
 
-.m6{
+.m6 {
     margin-right: 50%;
 }
 
@@ -115,5 +115,14 @@ footer.page-footer {
     }
     .button {
         padding: 1.2em 5%;
+    }
+}
+
+@media only screen and (min-width: 993px) {
+    #toast-container {
+        top: 10%;
+        margin-left: 38%;
+        max-width: 26%;
+        right:initial;
     }
 }

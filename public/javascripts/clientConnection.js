@@ -107,7 +107,7 @@
         }
 
         message_window.appendChild(t);
-        messages_cache[data._hash] = t;
+        // messages_cache[data._hash] = t;
 
         $("html, body").animate({
             scrollTop: $(document).height()
@@ -165,7 +165,7 @@
     socket.on('welcome back', function(data) {
         global_username = data.username;
         loggedIn = true;
-        Materialize.toast('Welcome back ' + data.username, 2000);
+        Materialize.toast('Welcome ' + data.username, 2000);
     });
     socket.on('back', function(data) {
         if (!loggedIn)
