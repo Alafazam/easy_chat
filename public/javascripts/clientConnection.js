@@ -31,7 +31,7 @@
         var text = "";
         length = length || 10;
         var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_";
-        for (var i = 0; length < 10; i++)
+        for (var i = 0; i < length; i++)
             text += possible.charAt(Math.floor(Math.random() * possible.length));
         return text;
     }
@@ -73,9 +73,8 @@
         var data = {
             'username': global_username,
             'message': message,
-            'hash': genhash(16)
+            '_hash': genhash(16)
         }
-
         socket.emit('message', data);
         _onMessage(data);
         $('#m').val('');
@@ -95,7 +94,8 @@
         var li = parseTemplate($("#messageTemplate").html(), {
             username: data.username,
             time: current_time,
-            message: data.message
+            message: data.message,
+            hash: data._hash
         });
         var t = $(li)[0];
         // console.log(t);
@@ -107,6 +107,8 @@
         }
 
         message_window.appendChild(t);
+        messages_cache[data._hash] = t;
+
         $("html, body").animate({
             scrollTop: $(document).height()
         }, 100);
@@ -120,6 +122,12 @@
         if (!loggedIn)
             return;
         _onMessage(data);
+    });
+
+    socket.on('recieved', function(data) {
+        if (!loggedIn)
+            return;
+        // $(messages_cache[data._hash]).find("i#done").delay( 20000 ).show();
     });
 
     socket.on('joined', function(data) {

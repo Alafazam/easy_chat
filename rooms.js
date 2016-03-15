@@ -11,30 +11,30 @@ var rooms = []
 function Room (owner,params) {
 	console.log('new room');
 	// todo add a random url here
-	
+
 	sthis.id = params.id || makeid() ;
-	
+
 	this.name = params.name || owner.name + "'s room";
-	
+
 	this.url = '';
-	
+
 	this.owner = owner.id;
 	this.members = [];
-	
+
 	this.members.push(owner.id);
-	
+
 	this.usersConnected = 1;
-	
+
 	rooms.push(this);
 
 }
 
 
 Room.prototype.join = function(user) {
-	
+
 	if (!this.member.indexOf(user.id)) {
 		this.member.push(user.id);
-		this.usersConnected++;	
+		this.usersConnected++;
 	}else{
 		console.log('user:'+user.username + " is already in room:" + room.name);
 	}
@@ -44,12 +44,12 @@ Room.prototype.join = function(user) {
 
 
 Room.prototype.leave = function(user) {
-	
+
 	if (this.member.indexOf(user.id)>-1) {
 		index  = this.member.indexOf(user.id);
 		this.member.splice(index,1);
 	};
-	
+
 };
 
 Room.prototype.getName = function  (argument) {

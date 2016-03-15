@@ -37,7 +37,7 @@ User.prototype._onMessageRecieved = function(data) {
     });
     this.emit('recieved', {
         'username': data.username,
-        'hash': data.hash
+        '_hash': data._hash
     });
 }
 
