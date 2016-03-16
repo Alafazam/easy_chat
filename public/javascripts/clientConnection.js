@@ -105,6 +105,7 @@
         } else {
             classie.add(t, "zoomInRight");
         }
+        $(t).find("i#done").attr('id',data._hash);
 
         message_window.appendChild(t);
         // messages_cache[data._hash] = t;
@@ -127,7 +128,7 @@
     socket.on('recieved', function(data) {
         if (!loggedIn)
             return;
-        // $(messages_cache[data._hash]).find("i#done").delay( 20000 ).show();
+        $('#'+data._hash).show();
     });
 
     socket.on('joined', function(data) {
