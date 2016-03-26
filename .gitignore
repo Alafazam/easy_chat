@@ -5,6 +5,11 @@ logs
 #test diff
 *.patch
 
+
+#sublime
+.sublime-workspace
+.sublime-project
+
 # Runtime data
 pids
 *.pid
