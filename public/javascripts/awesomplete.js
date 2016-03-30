@@ -130,6 +130,7 @@ _.prototype = {
 					}
 				});
 				this._list = items;
+				console.log("s"+this._list);
 			}
 		}
 
@@ -161,6 +162,7 @@ _.prototype = {
 		}
 
 		$.fire(this.input, "awesomplete-open");
+		emojify.run(this.ul);
 	},
 
 	next: function () {
@@ -276,7 +278,7 @@ _.SORT_BYLENGTH = function (a, b) {
 };
 
 _.ITEM = function (text, input) {
-	var html = input === '' ? text : text.replace(RegExp($.regExpEscape(input.trim()), "gi"), "<mark>$&</mark>");
+	var html = input === '' ? text : text.replace(RegExp($.regExpEscape(input.trim()), "gi"), "$&");
 	return $.create("li", {
 		innerHTML: html,
 		"aria-selected": "false"

@@ -50,6 +50,7 @@
     var namespace = ":" + window.location.port + '/';
     var paths = window.location.pathname.split('/');
 
+
     if (paths.length === 3) {
         namespace += paths[2];
     }
@@ -105,7 +106,7 @@
         } else {
             classie.add(t, "zoomInRight");
         }
-        $(t).find("i#done").attr('id',data._hash);
+        $(t).find("i#done").attr('id', data._hash);
 
         message_window.appendChild(t);
         // messages_cache[data._hash] = t;
@@ -128,7 +129,7 @@
     socket.on('recieved', function(data) {
         if (!loggedIn)
             return;
-        $('#'+data._hash).show();
+        $('#' + data._hash).show();
     });
 
     socket.on('joined', function(data) {
@@ -162,6 +163,12 @@
     socket.on('username', function(data) {
         global_username = data.username;
         loggedIn = true;
+        // var e = $('#m')[0];
+        // var ul = e.nextElementSibling;
+        var e = $('div .awesomplete ul')[0];
+        // console.log(e);
+        emojify.run(e);
+
     });
     socket.on('welcome back', function(data) {
         global_username = data.username;
