@@ -11,7 +11,8 @@
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="../public/stylesheets/materialize.min.css">
     <link rel="stylesheet" href="../public/stylesheets/emojify.min.css">
-    <link rel="stylesheet" href="https://cdn.rawgit.com/LeaVerou/awesomplete/gh-pages/awesomplete.css">
+    <link rel="stylesheet" href="../public/stylesheets/awesomecss.css">
+    <!-- <link rel="stylesheet" href="https://cdn.rawgit.com/LeaVerou/awesomplete/gh-pages/awesomplete.css"> -->
 </head>
 <style>
 .card .card-content .card-title {
@@ -177,47 +178,364 @@
                         <!-- <input id="m" autofocus="true" autocomplete="off" class="messagebox"> -->
                         <div class="awesomplete" style="width: 100%;">
                             <input id="m" autofocus="true" autocomplete="off" class="messagebox">
-                            <ul class="collapsible" hidden="">
-                                <li aria-selected="true">
-                                    <mark>:</mark>v
-                                    <mark>:</mark>
+                            <ul id="emo">
+                                <li aria-selected="false"><img align="absmiddle" alt=":bowtie:" class="emoji" src="images/emoji/bowtie.png" title=":bowtie:"></img>
                                 </li>
-                                <li aria-selected="false">
-                                    <mark>:</mark>fu
-                                    <mark>:</mark>
+                                <li aria-selected="false"><img align="absmiddle" alt=":smile:" class="emoji" src="images/emoji/smile.png" title=":smile:"></img>
                                 </li>
-                                <li aria-selected="false">
-                                    <mark>:</mark>bow
-                                    <mark>:</mark>
+                                <li aria-selected="false"><img align="absmiddle" alt=":laughing:" class="emoji" src="images/emoji/laughing.png" title=":laughing:"></img>
                                 </li>
-                                <li aria-selected="false">
-                                    <mark>:</mark>boy
-                                    <mark>:</mark>
+                                <li aria-selected="false"><img align="absmiddle" alt=":blush:" class="emoji" src="images/emoji/blush.png" title=":blush:"></img>
                                 </li>
-                                <li aria-selected="false">
-                                    <mark>:</mark>cop
-                                    <mark>:</mark>
+                                <li aria-selected="false"><img align="absmiddle" alt=":smiley:" class="emoji" src="images/emoji/smiley.png" title=":smiley:"></img>
                                 </li>
-                                <li aria-selected="false">
-                                    <mark>:</mark>cry
-                                    <mark>:</mark>
+                                <li aria-selected="false"><img align="absmiddle" alt=":relaxed:" class="emoji" src="images/emoji/relaxed.png" title=":relaxed:"></img>
                                 </li>
-                                <li aria-selected="false">
-                                    <mark>:</mark>ear
-                                    <mark>:</mark>
+                                <li aria-selected="false"><img align="absmiddle" alt=":smirk:" class="emoji" src="images/emoji/smirk.png" title=":smirk:"></img>
                                 </li>
-                                <li aria-selected="false">
-                                    <mark>:</mark>imp
-                                    <mark>:</mark>
+                                <li aria-selected="false"><img align="absmiddle" alt=":heart_eyes:" class="emoji" src="images/emoji/heart_eyes.png" title=":heart_eyes:"></img>
                                 </li>
-                                <li aria-selected="false">
-                                    <mark>:</mark>joy
-                                    <mark>:</mark>
+                                <li aria-selected="false"><img align="absmiddle" alt=":kissing_heart:" class="emoji" src="images/emoji/kissing_heart.png" title=":kissing_heart:"></img>
                                 </li>
-                                <li aria-selected="false">
-                                    <mark>:</mark>man
-                                    <mark>:</mark>
+                                <li aria-selected="false"><img align="absmiddle" alt=":kissing_closed_eyes:" class="emoji" src="images/emoji/kissing_closed_eyes.png" title=":kissing_closed_eyes:"></img>
                                 </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":flushed:" class="emoji" src="images/emoji/flushed.png" title=":flushed:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":relieved:" class="emoji" src="images/emoji/relieved.png" title=":relieved:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":satisfied:" class="emoji" src="images/emoji/satisfied.png" title=":satisfied:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":grin:" class="emoji" src="images/emoji/grin.png" title=":grin:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":wink:" class="emoji" src="images/emoji/wink.png" title=":wink:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":stuck_out_tongue_winking_eye:" class="emoji" src="images/emoji/stuck_out_tongue_winking_eye.png" title=":stuck_out_tongue_winking_eye:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":stuck_out_tongue_closed_eyes:" class="emoji" src="images/emoji/stuck_out_tongue_closed_eyes.png" title=":stuck_out_tongue_closed_eyes:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":grinning:" class="emoji" src="images/emoji/grinning.png" title=":grinning:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":kissing:" class="emoji" src="images/emoji/kissing.png" title=":kissing:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":kissing_smiling_eyes:" class="emoji" src="images/emoji/kissing_smiling_eyes.png" title=":kissing_smiling_eyes:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":stuck_out_tongue:" class="emoji" src="images/emoji/stuck_out_tongue.png" title=":stuck_out_tongue:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":sleeping:" class="emoji" src="images/emoji/sleeping.png" title=":sleeping:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":worried:" class="emoji" src="images/emoji/worried.png" title=":worried:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":frowning:" class="emoji" src="images/emoji/frowning.png" title=":frowning:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":anguished:" class="emoji" src="images/emoji/anguished.png" title=":anguished:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":open_mouth:" class="emoji" src="images/emoji/open_mouth.png" title=":open_mouth:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":grimacing:" class="emoji" src="images/emoji/grimacing.png" title=":grimacing:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":confused:" class="emoji" src="images/emoji/confused.png" title=":confused:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":hushed:" class="emoji" src="images/emoji/hushed.png" title=":hushed:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":expressionless:" class="emoji" src="images/emoji/expressionless.png" title=":expressionless:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":unamused:" class="emoji" src="images/emoji/unamused.png" title=":unamused:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":sweat_smile:" class="emoji" src="images/emoji/sweat_smile.png" title=":sweat_smile:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":sweat:" class="emoji" src="images/emoji/sweat.png" title=":sweat:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":disappointed_relieved:" class="emoji" src="images/emoji/disappointed_relieved.png" title=":disappointed_relieved:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":weary:" class="emoji" src="images/emoji/weary.png" title=":weary:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":pensive:" class="emoji" src="images/emoji/pensive.png" title=":pensive:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":disappointed:" class="emoji" src="images/emoji/disappointed.png" title=":disappointed:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":confounded:" class="emoji" src="images/emoji/confounded.png" title=":confounded:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":fearful:" class="emoji" src="images/emoji/fearful.png" title=":fearful:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":cold_sweat:" class="emoji" src="images/emoji/cold_sweat.png" title=":cold_sweat:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":persevere:" class="emoji" src="images/emoji/persevere.png" title=":persevere:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":cry:" class="emoji" src="images/emoji/cry.png" title=":cry:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":sob:" class="emoji" src="images/emoji/sob.png" title=":sob:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":joy:" class="emoji" src="images/emoji/joy.png" title=":joy:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":astonished:" class="emoji" src="images/emoji/astonished.png" title=":astonished:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":scream:" class="emoji" src="images/emoji/scream.png" title=":scream:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":neckbeard:" class="emoji" src="images/emoji/neckbeard.png" title=":neckbeard:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":tired_face:" class="emoji" src="images/emoji/tired_face.png" title=":tired_face:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":angry:" class="emoji" src="images/emoji/angry.png" title=":angry:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":rage:" class="emoji" src="images/emoji/rage.png" title=":rage:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":triumph:" class="emoji" src="images/emoji/triumph.png" title=":triumph:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":sleepy:" class="emoji" src="images/emoji/sleepy.png" title=":sleepy:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":yum:" class="emoji" src="images/emoji/yum.png" title=":yum:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":mask:" class="emoji" src="images/emoji/mask.png" title=":mask:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":sunglasses:" class="emoji" src="images/emoji/sunglasses.png" title=":sunglasses:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":dizzy_face:" class="emoji" src="images/emoji/dizzy_face.png" title=":dizzy_face:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":imp:" class="emoji" src="images/emoji/imp.png" title=":imp:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":smiling_imp:" class="emoji" src="images/emoji/smiling_imp.png" title=":smiling_imp:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":neutral_face:" class="emoji" src="images/emoji/neutral_face.png" title=":neutral_face:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":no_mouth:" class="emoji" src="images/emoji/no_mouth.png" title=":no_mouth:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":innocent:" class="emoji" src="images/emoji/innocent.png" title=":innocent:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":alien:" class="emoji" src="images/emoji/alien.png" title=":alien:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":yellow_heart:" class="emoji" src="images/emoji/yellow_heart.png" title=":yellow_heart:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":blue_heart:" class="emoji" src="images/emoji/blue_heart.png" title=":blue_heart:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":purple_heart:" class="emoji" src="images/emoji/purple_heart.png" title=":purple_heart:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":heart:" class="emoji" src="images/emoji/heart.png" title=":heart:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":green_heart:" class="emoji" src="images/emoji/green_heart.png" title=":green_heart:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":broken_heart:" class="emoji" src="images/emoji/broken_heart.png" title=":broken_heart:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":heartbeat:" class="emoji" src="images/emoji/heartbeat.png" title=":heartbeat:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":heartpulse:" class="emoji" src="images/emoji/heartpulse.png" title=":heartpulse:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":two_hearts:" class="emoji" src="images/emoji/two_hearts.png" title=":two_hearts:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":revolving_hearts:" class="emoji" src="images/emoji/revolving_hearts.png" title=":revolving_hearts:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":cupid:" class="emoji" src="images/emoji/cupid.png" title=":cupid:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":sparkling_heart:" class="emoji" src="images/emoji/sparkling_heart.png" title=":sparkling_heart:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":sparkles:" class="emoji" src="images/emoji/sparkles.png" title=":sparkles:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":star:" class="emoji" src="images/emoji/star.png" title=":star:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":star2:" class="emoji" src="images/emoji/star2.png" title=":star2:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":dizzy:" class="emoji" src="images/emoji/dizzy.png" title=":dizzy:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":boom:" class="emoji" src="images/emoji/boom.png" title=":boom:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":collision:" class="emoji" src="images/emoji/collision.png" title=":collision:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":anger:" class="emoji" src="images/emoji/anger.png" title=":anger:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":exclamation:" class="emoji" src="images/emoji/exclamation.png" title=":exclamation:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":question:" class="emoji" src="images/emoji/question.png" title=":question:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":grey_exclamation:" class="emoji" src="images/emoji/grey_exclamation.png" title=":grey_exclamation:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":grey_question:" class="emoji" src="images/emoji/grey_question.png" title=":grey_question:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":zzz:" class="emoji" src="images/emoji/zzz.png" title=":zzz:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":dash:" class="emoji" src="images/emoji/dash.png" title=":dash:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":sweat_drops:" class="emoji" src="images/emoji/sweat_drops.png" title=":sweat_drops:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":notes:" class="emoji" src="images/emoji/notes.png" title=":notes:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":musical_note:" class="emoji" src="images/emoji/musical_note.png" title=":musical_note:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":fire:" class="emoji" src="images/emoji/fire.png" title=":fire:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":poop:" class="emoji" src="images/emoji/poop.png" title=":poop:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":thumbsdown:" class="emoji" src="images/emoji/thumbsdown.png" title=":thumbsdown:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":ok_hand:" class="emoji" src="images/emoji/ok_hand.png" title=":ok_hand:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":punch:" class="emoji" src="images/emoji/punch.png" title=":punch:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":facepunch:" class="emoji" src="images/emoji/facepunch.png" title=":facepunch:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":fist:" class="emoji" src="images/emoji/fist.png" title=":fist:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":v:" class="emoji" src="images/emoji/v.png" title=":v:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":wave:" class="emoji" src="images/emoji/wave.png" title=":wave:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":hand:" class="emoji" src="images/emoji/hand.png" title=":hand:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":raised_hand:" class="emoji" src="images/emoji/raised_hand.png" title=":raised_hand:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":open_hands:" class="emoji" src="images/emoji/open_hands.png" title=":open_hands:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":point_up:" class="emoji" src="images/emoji/point_up.png" title=":point_up:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":point_down:" class="emoji" src="images/emoji/point_down.png" title=":point_down:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":point_left:" class="emoji" src="images/emoji/point_left.png" title=":point_left:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":point_right:" class="emoji" src="images/emoji/point_right.png" title=":point_right:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":raised_hands:" class="emoji" src="images/emoji/raised_hands.png" title=":raised_hands:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":pray:" class="emoji" src="images/emoji/pray.png" title=":pray:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":point_up_2:" class="emoji" src="images/emoji/point_up_2.png" title=":point_up_2:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":clap:" class="emoji" src="images/emoji/clap.png" title=":clap:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":muscle:" class="emoji" src="images/emoji/muscle.png" title=":muscle:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":metal:" class="emoji" src="images/emoji/metal.png" title=":metal:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":fu:" class="emoji" src="images/emoji/fu.png" title=":fu:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":runner:" class="emoji" src="images/emoji/runner.png" title=":runner:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":running:" class="emoji" src="images/emoji/running.png" title=":running:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":couple:" class="emoji" src="images/emoji/couple.png" title=":couple:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":family:" class="emoji" src="images/emoji/family.png" title=":family:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":two_men_holding_hands:" class="emoji" src="images/emoji/two_men_holding_hands.png" title=":two_men_holding_hands:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":two_women_holding_hands:" class="emoji" src="images/emoji/two_women_holding_hands.png" title=":two_women_holding_hands:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":dancer:" class="emoji" src="images/emoji/dancer.png" title=":dancer:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":dancers:" class="emoji" src="images/emoji/dancers.png" title=":dancers:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":ok_woman:" class="emoji" src="images/emoji/ok_woman.png" title=":ok_woman:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":no_good:" class="emoji" src="images/emoji/no_good.png" title=":no_good:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":information_desk_person:" class="emoji" src="images/emoji/information_desk_person.png" title=":information_desk_person:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":raising_hand:" class="emoji" src="images/emoji/raising_hand.png" title=":raising_hand:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":bride_with_veil:" class="emoji" src="images/emoji/bride_with_veil.png" title=":bride_with_veil:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":person_with_pouting_face:" class="emoji" src="images/emoji/person_with_pouting_face.png" title=":person_with_pouting_face:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":person_frowning:" class="emoji" src="images/emoji/person_frowning.png" title=":person_frowning:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":bow:" class="emoji" src="images/emoji/bow.png" title=":bow:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":couplekiss:" class="emoji" src="images/emoji/couplekiss.png" title=":couplekiss:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":couple_with_heart:" class="emoji" src="images/emoji/couple_with_heart.png" title=":couple_with_heart:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":massage:" class="emoji" src="images/emoji/massage.png" title=":massage:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":haircut:" class="emoji" src="images/emoji/haircut.png" title=":haircut:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":nail_care:" class="emoji" src="images/emoji/nail_care.png" title=":nail_care:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":boy:" class="emoji" src="images/emoji/boy.png" title=":boy:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":girl:" class="emoji" src="images/emoji/girl.png" title=":girl:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":woman:" class="emoji" src="images/emoji/woman.png" title=":woman:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":man:" class="emoji" src="images/emoji/man.png" title=":man:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":baby:" class="emoji" src="images/emoji/baby.png" title=":baby:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":older_woman:" class="emoji" src="images/emoji/older_woman.png" title=":older_woman:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":older_man:" class="emoji" src="images/emoji/older_man.png" title=":older_man:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":person_with_blond_hair:" class="emoji" src="images/emoji/person_with_blond_hair.png" title=":person_with_blond_hair:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":man_with_gua_pi_mao:" class="emoji" src="images/emoji/man_with_gua_pi_mao.png" title=":man_with_gua_pi_mao:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":man_with_turban:" class="emoji" src="images/emoji/man_with_turban.png" title=":man_with_turban:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":construction_worker:" class="emoji" src="images/emoji/construction_worker.png" title=":construction_worker:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":cop:" class="emoji" src="images/emoji/cop.png" title=":cop:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":angel:" class="emoji" src="images/emoji/angel.png" title=":angel:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":princess:" class="emoji" src="images/emoji/princess.png" title=":princess:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":smiley_cat:" class="emoji" src="images/emoji/smiley_cat.png" title=":smiley_cat:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":smile_cat:" class="emoji" src="images/emoji/smile_cat.png" title=":smile_cat:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":heart_eyes_cat:" class="emoji" src="images/emoji/heart_eyes_cat.png" title=":heart_eyes_cat:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":kissing_cat:" class="emoji" src="images/emoji/kissing_cat.png" title=":kissing_cat:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":smirk_cat:" class="emoji" src="images/emoji/smirk_cat.png" title=":smirk_cat:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":scream_cat:" class="emoji" src="images/emoji/scream_cat.png" title=":scream_cat:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":crying_cat_face:" class="emoji" src="images/emoji/crying_cat_face.png" title=":crying_cat_face:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":joy_cat:" class="emoji" src="images/emoji/joy_cat.png" title=":joy_cat:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":pouting_cat:" class="emoji" src="images/emoji/pouting_cat.png" title=":pouting_cat:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":japanese_ogre:" class="emoji" src="images/emoji/japanese_ogre.png" title=":japanese_ogre:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":japanese_goblin:" class="emoji" src="images/emoji/japanese_goblin.png" title=":japanese_goblin:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":see_no_evil:" class="emoji" src="images/emoji/see_no_evil.png" title=":see_no_evil:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":hear_no_evil:" class="emoji" src="images/emoji/hear_no_evil.png" title=":hear_no_evil:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":speak_no_evil:" class="emoji" src="images/emoji/speak_no_evil.png" title=":speak_no_evil:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":guardsman:" class="emoji" src="images/emoji/guardsman.png" title=":guardsman:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":skull:" class="emoji" src="images/emoji/skull.png" title=":skull:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":feet:" class="emoji" src="images/emoji/feet.png" title=":feet:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":lips:" class="emoji" src="images/emoji/lips.png" title=":lips:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":kiss:" class="emoji" src="images/emoji/kiss.png" title=":kiss:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":droplet:" class="emoji" src="images/emoji/droplet.png" title=":droplet:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":ear:" class="emoji" src="images/emoji/ear.png" title=":ear:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":eyes:" class="emoji" src="images/emoji/eyes.png" title=":eyes:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":nose:" class="emoji" src="images/emoji/nose.png" title=":nose:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":tongue:" class="emoji" src="images/emoji/tongue.png" title=":tongue:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":love_letter:" class="emoji" src="images/emoji/love_letter.png" title=":love_letter:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":bust_in_silhouette:" class="emoji" src="images/emoji/bust_in_silhouette.png" title=":bust_in_silhouette:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":busts_in_silhouette:" class="emoji" src="images/emoji/busts_in_silhouette.png" title=":busts_in_silhouette:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":speech_balloon:" class="emoji" src="images/emoji/speech_balloon.png" title=":speech_balloon:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":thought_balloon:" class="emoji" src="images/emoji/thought_balloon.png" title=":thought_balloon:"></img>
+                                </li>
+                                <li aria-selected="false"><img align="absmiddle" alt=":trollface:" class="emoji" src="images/emoji/trollface.png" title=":trollface:"></img>
+                                </li>
+                            </ul>
                             </ul><span class="visually-hidden" role="status" aria-live="assertive" aria-relevant="additions">:v:</span></div>
                     </div>
                     <button class="col s2 btn-large waves-effect waves-light teal lighten-1 messagebox">
@@ -250,6 +568,7 @@
 </body>
 <script src='../public/javascripts/jquery.min.js'></script>
 <script src="../public/javascripts/materialize.min.js"></script>
+<script src="../public/javascripts/emojify.min.js"></script>
 <script>
 (function(argument) {
     $('.button').mousedown(function(e) {
