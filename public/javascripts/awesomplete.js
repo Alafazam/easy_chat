@@ -224,7 +224,7 @@ _.prototype = {
 
 	evaluate: function() {
 		var me = this;
-		var value = this.input.value;
+		var value = this.input.value.split(' ').pop();
 
 		if (value.length >= this.minChars && this._list.length > 0) {
 			this.index = -1;
