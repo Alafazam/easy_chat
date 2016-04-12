@@ -286,7 +286,8 @@ _.ITEM = function (text, input) {
 };
 
 _.REPLACE = function (text) {
-	this.input.value = text.value;
+	var currentText = this.input.value;
+	this.input.value = currentText.substring(0, currentText.lastIndexOf(" ")) + " " + text.value + " ";
 };
 
 _.DATA = function (item/*, input*/) { return item; };
