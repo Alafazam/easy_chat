@@ -33,10 +33,22 @@ var _ = function (input, o) {
 
 	// Create necessary elements
 
+
+
 	this.container = $.create("div", {
 		className: "awesomplete",
 		around: input
 	});
+
+	// this.iconDiv = $.create("div", {
+	// 	inside: this.container
+	// });
+
+	this.iconI = $.create("i", {
+		className: "icon-smile",
+		inside: this.container
+	});
+	this.iconI.text = '&#xe800;';
 
 	this.ul = $.create("ul", {
 		hidden: "hidden",
