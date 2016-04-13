@@ -55,7 +55,7 @@ div.awesomplete > ul:empty {
 
 /* Pointer */
 
-div.awesomplete > ul:before {
+/*div.awesomplete > ul:before {
     content: "";
     position: absolute;
     top: -.43em;
@@ -70,7 +70,7 @@ div.awesomplete > ul:before {
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
 }
-
+*/
 div.awesomplete > ul > li {
     display: inline-block;
     position: relative;
