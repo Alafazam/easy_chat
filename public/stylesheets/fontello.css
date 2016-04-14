@@ -56,3 +56,10 @@
 }
  
 .icon-smile:before { content: '\e800'; }
+
+.icon-smile{
+  padding-top: 2%;
+  float: left;
+  /* vertical-align: middle; */
+  font-size: 28px;
+}

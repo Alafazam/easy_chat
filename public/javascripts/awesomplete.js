@@ -36,18 +36,15 @@ var _ = function (input, o) {
 
 
 	this.container = $.create("div", {
-		className: "awesomplete",
+		className: "awesomplete awesomplate_container",
 		around: input
 	});
-
-	// this.iconDiv = $.create("div", {
-	// 	inside: this.container
-	// });
 
 	this.iconI = $.create("i", {
 		className: "icon-smile",
 		inside: this.container
 	});
+
 	this.iconI.text = '&#xe800;';
 
 	this.ul = $.create("ul", {

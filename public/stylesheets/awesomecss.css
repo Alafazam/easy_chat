@@ -11,8 +11,15 @@ div.awesomplete {
     position: relative;
 }
 
+div.awesomplate_container{
+    display: inline-block;
+    width: 100%;
+}
+
 div.awesomplete > input {
     display: block;
+    width: 93%;
+    float: right;
 }
 
 div.awesomplete > ul {
