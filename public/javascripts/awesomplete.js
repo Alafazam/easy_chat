@@ -69,7 +69,7 @@ var _ = function (input, o) {
 			var c = evt.keyCode;
 
 			// If the dropdown `ul` is in view, then act on keydown for the following keys:
-			// Enter / Esc / Up / Down
+			// Enter / Esc / Left / Right
 			if(me.opened) {
 				if (c === 13 && me.selected) { // Enter
 					evt.preventDefault();
@@ -78,9 +78,9 @@ var _ = function (input, o) {
 				else if (c === 27) { // Esc
 					me.close();
 				}
-				else if (c === 38 || c === 40) { // Down/Up arrow
+				else if (c === 37 || c === 39) { // Left/Right arrow
 					evt.preventDefault();
-					me[c === 38? "previous" : "next"]();
+					me[c === 37? "previous" : "next"]();
 				}
 			}
 		}
