@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"con",
+				"console"
+			],
+			[
+				"op",
+				"openAll"
+			],
+			[
 				"emo",
 				"emojify"
 			],
@@ -72,10 +80,6 @@
 				"followers"
 			],
 			[
-				"con",
-				"contribution_data"
-			],
-			[
 				"pr",
 				"print"
 			],
@@ -122,10 +126,6 @@
 			[
 				"pl",
 				"place"
-			],
-			[
-				"op",
-				"opening"
 			],
 			[
 				"Pla",
@@ -479,7 +479,7 @@
 			"file": "views/chatroom.jade",
 			"settings":
 			{
-				"buffer_size": 1973,
+				"buffer_size": 2048,
 				"line_ending": "Unix"
 			}
 		},
@@ -504,16 +504,19 @@
 			"file": "public/stylesheets/awesomecss.css",
 			"settings":
 			{
-				"buffer_size": 1977,
+				"buffer_size": 1776,
 				"line_ending": "Unix",
 				"name": "[hidden] { display: none; }"
 			}
 		},
 		{
+			"contents": "\n/**\n * Simple, lightweight, usable local autocomplete library for modern browsers\n * Because there weren’t enough autocomplete scripts in the world? Because I’m completely insane and have NIH syndrome? Probably both. :P\n * @author Lea Verou http://leaverou.github.io/awesomplete\n * MIT license\n */\n\n\n\n\n\n(function () {\n\nvar _ = function (input, o) {\n	var me = this;\n\n	// Setup\n\n	this.input = $(input);\n	this.input.setAttribute(\"autocomplete\", \"off\");\n	this.input.setAttribute(\"aria-autocomplete\", \"list\");\n\n	o = o || {};\n\n	configure(this, {\n		minChars: 2,\n		maxItems: 10,\n		autoFirst: false,\n		data: _.DATA,\n		filter: _.FILTER_CONTAINS,\n		sort: _.SORT_BYLENGTH,\n		item: _.ITEM,\n		replace: _.REPLACE\n	}, o);\n\n	this.index = -1;\n\n	// Create necessary elements\n\n	this.container = $.create(\"div\", {\n		className: \"awesomplete awesomplate_container\",\n		around: input\n	});\n\n	this.iconI = $.create(\"i\", {\n		className: \"icon-smile\",\n		inside: this.container\n	});\n\n	this.iconI.text = '&#xe800;';\n\n	this.ul = $.create(\"ul\", {\n		hidden: \"hidden\",\n		inside: this.container\n	});\n\n	this.status = $.create(\"span\", {\n		className: \"visually-hidden\",\n		role: \"status\",\n		\"aria-live\": \"assertive\",\n		\"aria-relevant\": \"additions\",\n		inside: this.container\n	});\n\n	// Bind events\n\n	$.bind(this.input, {\n		\"input\": this.evaluate.bind(this),\n		\"blur\": this.close.bind(this),\n		\"keydown\": function(evt) {\n			var c = evt.keyCode;\n\n			// If the dropdown `ul` is in view, then act on keydown for the following keys:\n			// Enter / Esc / Left / Right\n			if(me.opened) {\n				if (c === 13 && me.selected) { // Enter\n					evt.preventDefault();\n					me.select();\n				}\n				else if (c === 27) { // Esc\n					me.close();\n				}\n				else if (c === 37 || c === 39) { // Left/Right arrow\n					evt.preventDefault();\n					me[c === 37? \"previous\" : \"next\"]();\n				}\n			}\n		}\n	});\n\n	$.bind(this.iconI, {\"mousedown\": function(evt) {\n		var target = evt.target;\n\n		if (target !== this.iconI) {\n\n			if (target && evt.button === 0) {  // Only select on left click\n				evt.preventDefault();\n				console.log(\"left click on smiley\");\n\n				if (me.opened) {\n					me.close();\n				}\n				else {\n					me.openAll();\n				}\n				// console.log(me._list);\n				// console.log(me.opened);\n			}\n		}\n	}});\n\n	$.bind(this.input.form, {\"submit\": this.close.bind(this)});\n\n	$.bind(this.ul, {\"mousedown\": function(evt) {\n		var li = evt.target;\n\n		if (li !== this) {\n\n			while (li && !/li/i.test(li.nodeName)) {\n				li = li.parentNode;\n			}\n\n			if (li && evt.button === 0) {  // Only select on left click\n				evt.preventDefault();\n				me.select(li, evt.target);\n			}\n		}\n	}});\n\n	if (this.input.hasAttribute(\"list\")) {\n		this.list = \"#\" + this.input.getAttribute(\"list\");\n		this.input.removeAttribute(\"list\");\n	}\n	else {\n		this.list = this.input.getAttribute(\"data-list\") || o.list || [];\n	}\n\n	_.all.push(this);\n};\n\n_.prototype = {\n	set list(list) {\n		if (Array.isArray(list)) {\n			this._list = list;\n		}\n		else if (typeof list === \"string\" && list.indexOf(\",\") > -1) {\n				this._list = list.split(/\\s*,\\s*/);\n		}\n		else { // Element or CSS selector\n			list = $(list);\n\n			if (list && list.children) {\n				var items = [];\n				slice.apply(list.children).forEach(function (el) {\n					if (!el.disabled) {\n						var text = el.textContent.trim();\n						var value = el.value || text;\n						var label = el.label || text;\n						if (value !== \"\") {\n							items.push({ label: label, value: value });\n						}\n					}\n				});\n				this._list = items;\n			}\n		}\n\n		if (document.activeElement === this.input) {\n			this.evaluate();\n		}\n	},\n\n	get selected() {\n		return this.index > -1;\n	},\n\n	get opened() {\n		return !this.ul.hasAttribute(\"hidden\");\n	},\n\n	close: function () {\n		this.ul.setAttribute(\"hidden\", \"\");\n		this.index = -1;\n\n		$.fire(this.input, \"awesomplete-close\");\n	},\n\n	open: function () {\n		this.ul.removeAttribute(\"hidden\");\n\n		if (this.autoFirst && this.index === -1) {\n			this.goto(0);\n		}\n\n		$.fire(this.input, \"awesomplete-open\");\n		emojify.run(this.ul);\n	},\n\n	openAll: function () {\n		var me = this;\n		this.ul.removeAttribute(\"hidden\");\n\n		// if (this.autoFirst && this.index === -1) {\n		// 	this.goto(0);\n		// }\n		this.ul.innerHTML = \"\";\n		this.suggestions = this._list;\n\n		this._list.forEach(function(text) {\n					me.ul.appendChild(me.item(text, text));\n				});\n		if (this.autoFirst && this.index === -1) {\n			this.goto(0);\n		}\n\n		// console.log(this.list);\n\n		$.fire(this.input, \"awesomplete-open\");\n		emojify.run(this.ul);\n	},\n\n	next: function () {\n		var count = this.ul.children.length;\n\n		this.goto(this.index < count - 1? this.index + 1 : -1);\n	},\n\n	previous: function () {\n		var count = this.ul.children.length;\n\n		this.goto(this.selected? this.index - 1 : count - 1);\n	},\n\n	// Should not be used, highlights specific item without any checks!\n	goto: function (i) {\n		var lis = this.ul.children;\n\n		if (this.selected) {\n			lis[this.index].setAttribute(\"aria-selected\", \"false\");\n		}\n\n		this.index = i;\n\n		if (i > -1 && lis.length > 0) {\n			lis[i].setAttribute(\"aria-selected\", \"true\");\n			this.status.textContent = lis[i].textContent;\n\n			$.fire(this.input, \"awesomplete-highlight\", {\n				text: this.suggestions[this.index]\n			});\n		}\n	},\n\n	select: function (selected, origin) {\n		if (selected) {\n			this.index = $.siblingIndex(selected);\n		} else {\n			selected = this.ul.children[this.index];\n		}\n\n		if (selected) {\n			var suggestion = this.suggestions[this.index];\n\n			var allowed = $.fire(this.input, \"awesomplete-select\", {\n				text: suggestion,\n				origin: origin || selected\n			});\n\n			if (allowed) {\n				this.replace(suggestion);\n				this.close();\n				$.fire(this.input, \"awesomplete-selectcomplete\", {\n					text: suggestion\n				});\n			}\n		}\n	},\n\n	evaluate: function() {\n		var me = this;\n		var value = this.input.value.split(' ').pop();\n\n		if (value.length >= this.minChars && this._list.length > 0) {\n			this.index = -1;\n			// Populate list with options that match\n			this.ul.innerHTML = \"\";\n\n			this.suggestions = this._list\n				.map(function(item) {\n					return new Suggestion(me.data(item, value));\n				})\n				.filter(function(item) {\n					return me.filter(item, value);\n				})\n				.sort(this.sort)\n				.slice(0, this.maxItems);\n\n			this.suggestions.forEach(function(text) {\n					me.ul.appendChild(me.item(text, value));\n				});\n\n			if (this.ul.children.length === 0) {\n				this.close();\n			} else {\n				this.open();\n			}\n		}\n		else {\n			this.close();\n		}\n	}\n};\n\n// Static methods/properties\n\n_.all = [];\n\n_.FILTER_CONTAINS = function (text, input) {\n	return RegExp($.regExpEscape(input.trim()), \"i\").test(text);\n};\n\n_.FILTER_STARTSWITH = function (text, input) {\n	return RegExp(\"^\" + $.regExpEscape(input.trim()), \"i\").test(text);\n};\n\n_.SORT_BYLENGTH = function (a, b) {\n	if (a.length !== b.length) {\n		return a.length - b.length;\n	}\n\n	return a < b? -1 : 1;\n};\n\n_.ITEM = function (text, input) {\n	var html = input === '' ? text : text.replace(RegExp($.regExpEscape(input.trim()), \"gi\"), \"$&\");\n	return $.create(\"li\", {\n		innerHTML: html,\n		\"aria-selected\": \"false\"\n	});\n};\n\n_.REPLACE = function (text) {\n	var currentText = this.input.value;\n	this.input.value = currentText.substring(0, currentText.lastIndexOf(\" \")) + \" \" + text.value + \" \";\n};\n\n_.DATA = function (item/*, input*/) { return item; };\n\n// Private functions\n\nfunction Suggestion(data) {\n	var o = Array.isArray(data)\n	  ? { label: data[0], value: data[1] }\n	  : typeof data === \"object\" && \"label\" in data && \"value\" in data ? data : { label: data, value: data };\n\n	this.label = o.label || o.value;\n	this.value = o.value;\n}\nObject.defineProperty(Suggestion.prototype = Object.create(String.prototype), \"length\", {\n	get: function() { return this.label.length; }\n});\nSuggestion.prototype.toString = Suggestion.prototype.valueOf = function () {\n	return \"\" + this.label;\n};\n\nfunction configure(instance, properties, o) {\n	for (var i in properties) {\n		var initial = properties[i],\n		    attrValue = instance.input.getAttribute(\"data-\" + i.toLowerCase());\n\n		if (typeof initial === \"number\") {\n			instance[i] = parseInt(attrValue);\n		}\n		else if (initial === false) { // Boolean options must be false by default anyway\n			instance[i] = attrValue !== null;\n		}\n		else if (initial instanceof Function) {\n			instance[i] = null;\n		}\n		else {\n			instance[i] = attrValue;\n		}\n\n		if (!instance[i] && instance[i] !== 0) {\n			instance[i] = (i in o)? o[i] : initial;\n		}\n	}\n}\n\n// Helpers\n\nvar slice = Array.prototype.slice;\n\nfunction $(expr, con) {\n	return typeof expr === \"string\"? (con || document).querySelector(expr) : expr || null;\n}\n\nfunction $$(expr, con) {\n	return slice.call((con || document).querySelectorAll(expr));\n}\n\n$.create = function(tag, o) {\n	var element = document.createElement(tag);\n\n	for (var i in o) {\n		var val = o[i];\n\n		if (i === \"inside\") {\n			$(val).appendChild(element);\n		}\n		else if (i === \"around\") {\n			var ref = $(val);\n			ref.parentNode.insertBefore(element, ref);\n			element.appendChild(ref);\n		}\n		else if (i in element) {\n			element[i] = val;\n		}\n		else {\n			element.setAttribute(i, val);\n		}\n	}\n\n	return element;\n};\n\n$.bind = function(element, o) {\n	if (element) {\n		for (var event in o) {\n			var callback = o[event];\n\n			event.split(/\\s+/).forEach(function (event) {\n				element.addEventListener(event, callback);\n			});\n		}\n	}\n};\n\n$.fire = function(target, type, properties) {\n	var evt = document.createEvent(\"HTMLEvents\");\n\n	evt.initEvent(type, true, true );\n\n	for (var j in properties) {\n		evt[j] = properties[j];\n	}\n\n	return target.dispatchEvent(evt);\n};\n\n$.regExpEscape = function (s) {\n	return s.replace(/[-\\\\^$*+?.()|[\\]{}]/g, \"\\\\$&\");\n};\n\n$.siblingIndex = function (el) {\n	/* eslint-disable no-cond-assign */\n	for (var i = 0; el = el.previousElementSibling; i++);\n	return i;\n};\n\n// Initialization\n\nfunction init() {\n	$$(\"input.awesomplete\").forEach(function (input) {\n		new _(input);\n	});\n}\n\n// Are we in a browser? Check for Document constructor\nif (typeof Document !== \"undefined\") {\n	// DOM already loaded?\n	if (document.readyState !== \"loading\") {\n		init();\n	}\n	else {\n		// Wait for it\n		document.addEventListener(\"DOMContentLoaded\", init);\n	}\n}\n\n_.$ = $;\n_.$$ = $$;\n\n// Make sure to export Awesomplete on self when in a browser\nif (typeof self !== \"undefined\") {\n	self.Awesomplete = _;\n}\n\n// Expose Awesomplete as a CJS module\nif (typeof module === \"object\" && module.exports) {\n	module.exports = _;\n}\n\nreturn _;\n\n}());",
 			"file": "public/javascripts/awesomplete.js",
+			"file_size": 10458,
+			"file_write_time": 131052895055865136,
 			"settings":
 			{
-				"buffer_size": 9246,
+				"buffer_size": 10364,
 				"line_ending": "Unix"
 			}
 		},
@@ -919,6 +922,16 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"suggestion",
+			"suggestions",
+			"open",
+			"openAll",
+			"open",
+			"me",
+			"open",
+			"openAll",
+			"FILTER_CONTAINS",
+			"target",
 			",",
 			"'",
 			"siblingIndex",
@@ -1036,17 +1049,7 @@
 			"push",
 			"convert_to_row_cols",
 			"users",
-			"self",
-			"5",
-			"top_following",
-			"users",
-			"top_following",
-			"users",
-			"top_following",
-			"followers",
-			"following",
-			"top_following",
-			"users"
+			"self"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1065,7 +1068,7 @@
 	"groups":
 	[
 		{
-			"selected": 4,
+			"selected": 5,
 			"sheets":
 			[
 				{
@@ -1104,15 +1107,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1973,
+						"buffer_size": 2048,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1254,
-								1254
+								0,
+								0
 							]
 						],
 						"settings":
@@ -1125,7 +1128,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
@@ -1155,7 +1158,7 @@
 						"translation.y": 3458.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
@@ -1186,7 +1189,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
@@ -1195,28 +1198,29 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1977,
+						"buffer_size": 1776,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								260,
-								260
+								0,
+								0
 							]
 						],
 						"settings":
 						{
 							"auto_name": "[hidden] { display: none; }",
 							"syntax": "Packages/CSS/CSS.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
-						"translation.x": -0.0,
-						"translation.y": 1260.0,
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -1225,15 +1229,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 9246,
+						"buffer_size": 10364,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								8712,
-								8712
+								5399,
+								5399
 							]
 						],
 						"settings":
@@ -1242,10 +1246,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 3318.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -1267,13 +1271,15 @@
 						"settings":
 						{
 							"auto_name": "<ul id=\"emo\">",
-							"syntax": "Packages/Text/Plain text.tmLanguage"
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
@@ -1300,10 +1306,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2058.0,
+						"translation.y": 2004.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -1319,8 +1325,8 @@
 						"selection":
 						[
 							[
-								6220,
-								6220
+								3383,
+								3383
 							]
 						],
 						"settings":
@@ -1331,7 +1337,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{

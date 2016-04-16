@@ -1,9 +1,14 @@
+
 /**
  * Simple, lightweight, usable local autocomplete library for modern browsers
  * Because there weren’t enough autocomplete scripts in the world? Because I’m completely insane and have NIH syndrome? Probably both. :P
  * @author Lea Verou http://leaverou.github.io/awesomplete
  * MIT license
  */
+
+
+
+
 
 (function () {
 
@@ -32,8 +37,6 @@ var _ = function (input, o) {
 	this.index = -1;
 
 	// Create necessary elements
-
-
 
 	this.container = $.create("div", {
 		className: "awesomplete awesomplate_container",
@@ -85,6 +88,27 @@ var _ = function (input, o) {
 			}
 		}
 	});
+
+	$.bind(this.iconI, {"mousedown": function(evt) {
+		var target = evt.target;
+
+		if (target !== this.iconI) {
+
+			if (target && evt.button === 0) {  // Only select on left click
+				evt.preventDefault();
+				console.log("left click on smiley");
+
+				if (me.opened) {
+					me.close();
+				}
+				else {
+					me.openAll();
+				}
+				// console.log(me._list);
+				// console.log(me.opened);
+			}
+		}
+	}});
 
 	$.bind(this.input.form, {"submit": this.close.bind(this)});
 
@@ -139,7 +163,6 @@ _.prototype = {
 					}
 				});
 				this._list = items;
-				console.log("s"+this._list);
 			}
 		}
 
@@ -169,6 +192,29 @@ _.prototype = {
 		if (this.autoFirst && this.index === -1) {
 			this.goto(0);
 		}
+
+		$.fire(this.input, "awesomplete-open");
+		emojify.run(this.ul);
+	},
+
+	openAll: function () {
+		var me = this;
+		this.ul.removeAttribute("hidden");
+
+		// if (this.autoFirst && this.index === -1) {
+		// 	this.goto(0);
+		// }
+		this.ul.innerHTML = "";
+		this.suggestions = this._list;
+
+		this._list.forEach(function(text) {
+					me.ul.appendChild(me.item(text, text));
+				});
+		if (this.autoFirst && this.index === -1) {
+			this.goto(0);
+		}
+
+		// console.log(this.list);
 
 		$.fire(this.input, "awesomplete-open");
 		emojify.run(this.ul);
@@ -215,6 +261,11 @@ _.prototype = {
 
 		if (selected) {
 			var suggestion = this.suggestions[this.index];
+
+			if(suggestion==null){
+				console.log("sadd");
+				suggestion = selected.title;
+			};
 
 			var allowed = $.fire(this.input, "awesomplete-select", {
 				text: suggestion,
