@@ -207,6 +207,12 @@ _.prototype = {
 		this.ul.innerHTML = "";
 		this.suggestions = this._list;
 
+		this.suggestions = this._list
+			.map(function(item) {
+				return new Suggestion(me.data(item, item));
+			});
+
+
 		this._list.forEach(function(text) {
 					me.ul.appendChild(me.item(text, text));
 				});
@@ -262,14 +268,9 @@ _.prototype = {
 		if (selected) {
 			var suggestion = this.suggestions[this.index];
 
-			if(suggestion==null){
-				console.log("sadd");
-				suggestion = selected.title;
-			};
-
 			var allowed = $.fire(this.input, "awesomplete-select", {
 				text: suggestion,
-				origin: origin || selected
+				origin: origin
 			});
 
 			if (allowed) {
