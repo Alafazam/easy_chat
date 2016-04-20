@@ -89,14 +89,15 @@ var _ = function (input, o) {
 		}
 	});
 
-	$.bind(this.iconI, {"mousedown": function(evt) {
+	$.bind(this.iconI, {
+		// "blur": this.close.bind(this),
+		"mousedown": function(evt) {
 		var target = evt.target;
 
 		if (target !== this.iconI) {
 
 			if (target && evt.button === 0) {  // Only select on left click
 				evt.preventDefault();
-				console.log("left click on smiley");
 
 				if (me.opened) {
 					me.close();
@@ -104,8 +105,6 @@ var _ = function (input, o) {
 				else {
 					me.openAll();
 				}
-				// console.log(me._list);
-				// console.log(me.opened);
 			}
 		}
 	}});
@@ -201,9 +200,6 @@ _.prototype = {
 		var me = this;
 		this.ul.removeAttribute("hidden");
 
-		// if (this.autoFirst && this.index === -1) {
-		// 	this.goto(0);
-		// }
 		this.ul.innerHTML = "";
 		this.suggestions = this._list;
 
@@ -215,11 +211,12 @@ _.prototype = {
 
 		this._list.forEach(function(text) {
 					me.ul.appendChild(me.item(text, text));
-				});
+			});
+
 		if (this.autoFirst && this.index === -1) {
 			this.goto(0);
 		}
-
+		this.opened = true;
 		// console.log(this.list);
 
 		$.fire(this.input, "awesomplete-open");
