@@ -58,6 +58,7 @@
     // var socket = io('/bogie');
     // var socket = io(':8080/');
     // console.log(io);
+    console.log(paths);
     console.log("connnected to namespace: " + namespace);
 
     var id = null;

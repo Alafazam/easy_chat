@@ -23,8 +23,6 @@ var connection = require('./connection');
 var app = express();
 
 
-
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -40,55 +38,24 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session);
 
+var server = http.createServer(app)
+var io = require("socket.io").listen(server);
+var connections = [];
+var numberOfUsers = 0;
+
 
 
 // app.set("rooms",["one","two"]);
 
 app.get('/', routes);
 app.use('/chatroom', chatroom);
+// app.use('/bogie', chatroom);
 
-app.locals.rooms = ["default","bogie"];
+app.locals.rooms = ["default","bogie","tuki"];
 
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
-
-// error handlers
-
-// development error handler
-// will print stacktrace
-if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err
-    });
-  });
-}
-
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
-});
-
-
-
-
-var server = http.createServer(app)
-var io = require("socket.io").listen(server);
-var connections = [];
-var numberOfUsers = 0;
-
+// push IO object to local? bad idea maybe.
+app.locals._IO = io;
+app.locals._IOS = ios;
 
 
 server.listen(config.server_port, config.server_ip_address, function () {
@@ -100,11 +67,29 @@ io.use(ios(session));
 
 io.on('connection',connection.userConnection);
 
-// var nsp = io.of('/bogie');
-// nsp.on('connection', function(socket){
-//   console.log('someone connected');
-// });
-// nsp.emit('hi', 'everyone!');
+var nsp = io.of('/bogie');
+nsp.use(ios(session));
+nsp.on('connection',connection.userConnection);
+
+
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
+
+// production error handler
+// no stacktraces leaked to user
+app.use(function(err, req, res, next) {
+  res.status(err.status || 500);
+  res.render('error', {
+    message: err.message,
+    error: {}
+  });
+});
+
 
 
 
