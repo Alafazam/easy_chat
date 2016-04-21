@@ -28,27 +28,26 @@
         </div>
         <br>
         <br>
+        <div class="row center">
+            <a href="#" id="download-button" class="btn-large waves-effect waves-light teal lighten-1">Create a New Room</a>
+        </div>
     </div>
 </body>
 <script src='/javascripts/jquery.min.js'></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
-
 <script>
-(function (argument) {
+(function(argument) {
     function makeid() {
         var text = "";
         var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_";
         for (var i = 0; i < 10; i++)
             text += possible.charAt(Math.floor(Math.random() * possible.length));
         return text;
-   }
-  $('input#username')[0].value = makeid();
+    }
+    $('input#username')[0].value = makeid();
 
 })();
-
-
 </script>
-
 <script>
 (function(argument) {
     $('.button').mousedown(function(e) {

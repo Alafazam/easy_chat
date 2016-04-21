@@ -6,8 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var http = require('http');
 var config = require('./config');
-var ios = require('socket.io-express-session');
-var session = require("express-session")(config.session);
+ios = require('socket.io-express-session');
+session = require("express-session")(config.session);
 
 
 
@@ -15,8 +15,8 @@ var session = require("express-session")(config.session);
 var routes = require('./routes/index');
 var user = require('./routes/user');
 var chatroom = require('./routes/chatroom');
+var create_room = require('./routes/create_room');
 var connection = require('./connection');
-
 
 // session
 
@@ -39,38 +39,22 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session);
 
 var server = http.createServer(app)
-var io = require("socket.io").listen(server);
-var connections = [];
-var numberOfUsers = 0;
-
+io = require("socket.io").listen(server);
+Rooms = []
 
 
 // app.set("rooms",["one","two"]);
 
 app.get('/', routes);
 app.use('/chatroom', chatroom);
-// app.use('/bogie', chatroom);
-
-app.locals.rooms = ["default","bogie","tuki"];
-
-// push IO object to local? bad idea maybe.
-app.locals._IO = io;
-app.locals._IOS = ios;
-
+app.use('/create_room', create_room);
 
 server.listen(config.server_port, config.server_ip_address, function () {
   console.log( "Listening on " + config.server_ip_address + ", server_port " + config.server_port );
 });
 io.use(ios(session));
 
-
-
 io.on('connection',connection.userConnection);
-
-var nsp = io.of('/bogie');
-nsp.use(ios(session));
-nsp.on('connection',connection.userConnection);
-
 
 
 // catch 404 and forward to error handler
@@ -89,10 +73,3 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
-
-
-
-// rooms.P();
-
-// var t = new rooms();
