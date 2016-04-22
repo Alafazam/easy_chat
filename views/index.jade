@@ -15,6 +15,18 @@ block content
     div(class="row center")
       a(href="/chatroom", class="btn-large waves-effect waves-light")
         |Get Started
+    div(class="row center")
+      a(href="/create_room", class="btn-large waves-effect waves-light")
+        |Create a New Room
+    div(class="row center")
+      div(class="collection with-header col offset-m3 m6 s12")
+        div(class="collection-header center")
+          h4
+            |Already Talking
+        a(href='/chatroom' class="collection-item")
+          |Common Room
+        each val in availableRooms
+          a(href='/chatroom/'+val class="collection-item")=val
 
 block footer
   script(src='/javascripts/socket.io.js')

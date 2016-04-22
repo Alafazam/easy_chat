@@ -11,9 +11,13 @@ router.get('/', function(req, res, next) {
 
 router.get('/:roomName',  function(req, res){
 	var roomName = req.params.roomName;
-	console.log(Rooms);
-	console.log(roomName);
-	if (_.includes(Rooms,roomName)) {
+	var room_found = false;
+
+	for (var i = Rooms.length - 1; i >= 0; i--) {
+		if(RoomNames[i] == roomName)
+			room_found = true;
+	};
+	if (room_found) {
 		res.render('chatroom',{name: random_names()});
 	} else {
 		res.redirect('/chatroom');

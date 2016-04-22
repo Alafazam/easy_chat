@@ -8,8 +8,8 @@ var http = require('http');
 var config = require('./config');
 ios = require('socket.io-express-session');
 session = require("express-session")(config.session);
-
-
+Rooms = []
+RoomNames = []
 
 // imports for routes
 var routes = require('./routes/index');
@@ -17,8 +17,6 @@ var user = require('./routes/user');
 var chatroom = require('./routes/chatroom');
 var create_room = require('./routes/create_room');
 var connection = require('./connection');
-
-// session
 
 var app = express();
 
@@ -31,7 +29,7 @@ app.set('view engine', 'jade');
 app.set('port', config.server_port);
 
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
+// app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -40,9 +38,6 @@ app.use(session);
 
 var server = http.createServer(app)
 io = require("socket.io").listen(server);
-Rooms = []
-
-
 // app.set("rooms",["one","two"]);
 
 app.get('/', routes);
@@ -52,8 +47,8 @@ app.use('/create_room', create_room);
 server.listen(config.server_port, config.server_ip_address, function () {
   console.log( "Listening on " + config.server_ip_address + ", server_port " + config.server_port );
 });
-io.use(ios(session));
 
+io.use(ios(session));
 io.on('connection',connection.userConnection);
 
 
