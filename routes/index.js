@@ -1,5 +1,3 @@
-
-
 var random_names = require('../random_names');
 var express = require('express');
 var router = express.Router();
