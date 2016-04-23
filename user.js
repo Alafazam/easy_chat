@@ -1,20 +1,13 @@
 var _ = require('lodash');
-var Room = require('./rooms');
 
-var connectionList = [];
-var numberOfUsers = 0;
 var running_session = [];
 var usernamesOccupied = [];
+
 var User = function(socket) {
     this._socket = socket;
     this.id = socket.id;
     this.name = '';
     this.session = socket.handshake.session;
-
-
-    this.rooms = [];
-    this.connectionList = [];
-    this.currentroom = this.id;
 
     for (var t in socket) {
         this[t] = socket[t];
@@ -41,16 +34,10 @@ User.prototype._onMessageRecieved = function(data) {
     });
 }
 
-User.prototype.joinRoom = function(room) {
-    this.currentroom = room;
-    this._socket.join(room);
-};
-
-
 User.prototype.checkSession = function(data) {
     // check if session is present
     if (!_.contains(running_session, this.session.id)) {
-        console.log("Request login");
+        // console.log("Request login");
         this.emit('request login', {
             'id': this.id
         });
@@ -73,7 +60,7 @@ User.prototype.checkSession = function(data) {
 
 User.prototype.setUsername = function(data) {
     // if name exit again ask for a new name
-    console.log("nameExists(data.name) " + nameExists(data.username));
+    // console.log("nameExists(data.name) " + nameExists(data.username));
     if (nameExists(data.username)) {
         this.emit('request login', { exists: true });
         return;
@@ -108,7 +95,9 @@ User.prototype.sessionInit = function(param) {
         'users_online': usernamesOccupied
     });
 
-    connectionList.push({
+
+    // pushing to global array
+    UserConnections.push({
         username: this.name,
         id: this.id,
         sessId: this.session.id,
@@ -133,21 +122,19 @@ User.prototype.__init__ = function() {
     }).bind(this));
 
     this._socket.on('disconnect', (function(data) {
-        this.udisconnect(data);
+        // this.udisconnect(data);
     }).bind(this));
 };
 
 
-User.prototype.udisconnect = function() {
-    // this._broadcast();
+User.prototype.udisconnect = function(data) {
+    var _this = this;
+    var timeoutId = setTimeout(function() { KILL_USER_SESSION(_this); }, 10000);
+    console.log(timeoutId);
+    // this.session.shouldStop = timeoutId;
+    // update
+    if(this.session){this.session.save()};
 };
-
-
-User.prototype.add_to_room = function(room) {
-
-};
-
-
 
 
 function nameExists(name) {
@@ -155,7 +142,16 @@ function nameExists(name) {
     return _.contains(usernamesOccupied, name);
 };
 
-
+function KILL_USER_SESSION(_this){
+    var id = _this.id;
+    _.remove(usernamesOccupied, _this.name);
+    _.remove(running_session, _this.session.id);
+    _.remove(UserConnections, function(n) {
+        return n.id = id;
+    });
+    _this.session.destroy();
+    console.log("session stopped for " + _this.name);
+}
 
 
 

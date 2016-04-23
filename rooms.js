@@ -9,27 +9,29 @@ function makeid() {
 }
 // name of file is actually a bit misleading, we are creating namespaces here
 
-var room = function (name) {
-	console.log("creating new room here");
-	var me = this;
-	if(name)
-		this.name = name;
-	else
-		this.name = makeid();
+var room = function(name) {
+    console.log("creating new room here");
+    var me = this;
+    if (name)
+        this._name = name;
+    else
+        this._name = makeid();
 
-	this._namespaces = io.of('/' + this.name);
-	this._namespaces.use(ios(session));
-	this._namespaces.on('connection',connection.userConnection);
-	this.timeStamp = new Date().getTime();
-	return this;
+    this._namespace = io.of('/' + this.name);
+    this._namespace.use(ios(session));
+    this._namespace.on('connection', connection.userConnection);
+    this._timeStamp = new Date().getTime();
+    console.log("room created");
+
 };
+
 room.prototype = {
-	get name() {
-		return this.name;
-	},
-	get namespaces() {
-		return this._namespaces;
-	}
+    get name() {
+        return this._name;
+    },
+    get namespace(){
+    	return this._namespace;
+    }
 }
 
 
