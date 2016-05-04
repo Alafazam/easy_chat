@@ -1,4 +1,7 @@
 (function() {
+    emojify.setConfig({
+        img_dir: '.././images/emoji', // Directory for emoji images
+    });
     var loggedIn = false;
 
     var colors = ["red", "pink", "purple", "deep-purple", "indigo", "blue", "light-blue", "cyan", "teal", "green", "light-green", "lime", "yellow", "amber", "orange", "deep-orange"];
