@@ -1,18 +1,23 @@
 var _ = require('lodash');
 
-var running_session = [];
 var usernamesOccupied = [];
 
-var User = function(socket) {
+function User(socket) {
     this._socket = socket;
     this.id = socket.id;
     this.name = '';
     this.session = socket.handshake.session;
+    this.sessionInitiated = false;
+    this.inNamespace = socket.id.split('#')[0];
 
     for (var t in socket) {
         this[t] = socket[t];
     }
-    console.log('calling init');
+
+    console.log('connected ' + socket.id);
+
+    Janta[this.inNamespace].push(this.id);
+    console.log(this.id + " added to namespace " + this.inNamespace);
     this.__init__();
 };
 
@@ -36,14 +41,14 @@ User.prototype._onMessageRecieved = function(data) {
 
 User.prototype.checkSession = function(data) {
     // check if session is present
-    if (!_.contains(running_session, this.session.id)) {
+    if (!Sessions[this.session.id]) {
         // console.log("Request login");
         this.emit('request login', {
             'id': this.id
         });
         return;
     }
-    // so session is runnning.
+    //Session is runnning.
     this.sessionInit({
         restore: true
     });
@@ -55,7 +60,7 @@ User.prototype.checkSession = function(data) {
         'username': this.name
     });
 
-    console.log("session restored for " + this.name);
+    console.log("Session restored for " + this.name);
 };
 
 User.prototype.setUsername = function(data) {
@@ -65,9 +70,11 @@ User.prototype.setUsername = function(data) {
         this.emit('request login', { exists: true });
         return;
     }
+    // username is confirmed
     this.name = data.username;
     usernamesOccupied.push(data.username);
-    this.session.sockets = [];
+
+    // create a new session for this user
     this.sessionInit({
         restore: false
     });
@@ -76,34 +83,27 @@ User.prototype.setUsername = function(data) {
 
 User.prototype.sessionInit = function(param) {
 
+    // if !restore create new
     if (!param.restore) {
-        // create new
-        running_session.push(this.session.id);
+        // add to global
+        Sessions[this.session.id] = this.name;
+        this.session.sockets = [];
+        this.session.username = this.name;
         this._broadcast('joined', {
             username: this.name
         });
-        this.session.username = this.name;
     } else {
         this.name = this.session.username;
     }
 
-    this.session.uid = Date.now();
-    this.session.windowOpen = true;
+    // add the new socket to session sockets
     this.session.sockets.push(this.id);
+
     this.emit('username', {
         'username': this.name,
         'users_online': usernamesOccupied
     });
-
-
-    // pushing to global array
-    UserConnections.push({
-        username: this.name,
-        id: this.id,
-        sessId: this.session.id,
-        windowOpen: true,
-        tStamp: this.session.uid
-    });
+    this.sessionInitiated = true;
     // update
     this.session.save();
 };
@@ -117,23 +117,46 @@ User.prototype.__init__ = function() {
     }).bind(this));
 
     this._socket.on('message', (function(data) {
-        console.log("got a message saying: " + data.message);
+        console.log(this.name + " : " + data.message);
         this._onMessageRecieved(data);
     }).bind(this));
 
     this._socket.on('disconnect', (function(data) {
-        // this.udisconnect(data);
+        this.udisconnect(data);
     }).bind(this));
 };
 
 
 User.prototype.udisconnect = function(data) {
-    var _this = this;
-    var timeoutId = setTimeout(function() { KILL_USER_SESSION(_this); }, 10000);
-    console.log(timeoutId);
-    // this.session.shouldStop = timeoutId;
-    // update
+    if(!this.sessionInitiated)
+        return;
+
+    for(var i = this.session.sockets.length-1; i > -1; i--){
+        if (this.session.sockets[i] === this.id){
+            this.session.sockets.splice(i, 1);
+        }
+    }
+
+    if(this.inNamespace != '/'){
+        // console.log("this.inNamespace " + this.inNamespace);
+        // console.log("142 :" + _.contains(Janta[this.inNamespace], this.id));
+        // console.log(Janta[this.inNamespace]);
+
+        if(_.contains(Janta[this.inNamespace], this.id)){
+            var pos = Janta[this.inNamespace].indexOf(this.id);
+            Janta[this.inNamespace].splice(pos, 1);
+        }
+        if(Janta[this.inNamespace].length == 0){
+            // no one is in this namespace
+            RoomNames = _.remove(RoomNames, this.inNamespace.split('/')[1]);
+            delete Janta[this.inNamespace];
+
+        }
+    }
+
     if(this.session){this.session.save()};
+    console.log("disconnect " + this.id);
+
 };
 
 
@@ -141,71 +164,5 @@ function nameExists(name) {
     // _.some(connectionList, function(item) {return item.username == username})
     return _.contains(usernamesOccupied, name);
 };
-
-function KILL_USER_SESSION(_this){
-    var id = _this.id;
-    _.remove(usernamesOccupied, _this.name);
-    _.remove(running_session, _this.session.id);
-    _.remove(UserConnections, function(n) {
-        return n.id = id;
-    });
-    _this.session.destroy();
-    console.log("session stopped for " + _this.name);
-}
-
-
-
-
-
-
-
-
-// socket.username = '';
-
-
-// //  make use tell his name
-// socket.emit('request login', {
-//     'id': socket.id
-// });
-
-// // when we know who user is
-// socket.on('username', function(data) {
-//     socket.username = data.username;
-//     connectionList[numberOfUsers - 1] = {
-//         username: socket.username,
-//         id: socket.id
-//     };
-//     // notify others
-//     socket.broadcast.emit('update users', {
-//         status: 'joined',
-//         numberOfUsers: numberOfUsers,
-//         connectionList: connectionList,
-//         msg: socket.username + ' joined'
-//     });
-// })
-
-
-// socket.on('chat message', function(msg) {
-//     io.emit('chat message', {
-//         'username': socket.username,
-//         'msg': msg
-//     });
-//     console.log(socket.username + ' said ' + msg);
-// });
-
-
-// socket.on('disconnect', function() {
-//     console.log(socket.username + ' got disconnected');
-//     numberOfUsers--;
-//     socket.broadcast.emit('update users', {
-//         status: 'disconnect',
-//         numberOfUsers: numberOfUsers,
-//         msg: socket.username + ' got disconnected'
-//     });
-// });
-
-
-
-
 
 module.exports = User;

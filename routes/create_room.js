@@ -6,10 +6,10 @@ var Room = require('.././rooms');
 
 
 router.get('/', function(req, res, next) {
-	var room = new Room();
-	Rooms.push(room);
-	RoomNames.push(room.name);
- 	res.redirect('/chatroom/' + room.name);
+	var chatroom = new Room();
+	RoomNames.push(chatroom.name);
+	Janta["/" + chatroom.name] = [];
+	res.redirect('/chatroom/' + chatroom.name);
 });
 
 module.exports = router;

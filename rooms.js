@@ -9,7 +9,7 @@ function makeid() {
 }
 // name of file is actually a bit misleading, we are creating namespaces here
 
-var room = function(name) {
+function room(name) {
     console.log("creating new room here");
     var me = this;
     if (name)
@@ -21,7 +21,7 @@ var room = function(name) {
     this._namespace.use(ios(session));
     this._namespace.on('connection', connection.userConnection);
     this._timeStamp = new Date().getTime();
-    console.log("room created");
+    console.log("Room created " + "/" + this.name);
 
 };
 

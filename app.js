@@ -7,11 +7,14 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var http = require('http');
 var config = require('./config');
+
+// Globals
 ios = require('socket.io-express-session');
 session = require("express-session")(config.session);
 Rooms = []
 RoomNames = []
-UserConnections = []
+Sessions = {}
+Janta = {'/':[]}
 
 
 // imports for routes
@@ -52,23 +55,8 @@ server.listen(config.server_port, config.server_ip_address, function () {
 });
 
 io.use(ios(session));
+
 io.on('connection',connection.userConnection);
-
-
-setInterval(function () {
-  for (var i = Rooms.length - 1; i >= 0; i--) {
-    var clients;
-    var RoomName = Rooms[i].name;
-    clients = _.keys(io.of('/'+ RoomName).sockets);
-    if(clients.length == 0){
-      console.log("removing nsp + "+ RoomName);
-      _.remove(RoomNames, RoomName);
-      _.remove(Rooms,Rooms[i]);
-    }
-  };
-
-},10*1000);
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -86,3 +74,4 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
+
