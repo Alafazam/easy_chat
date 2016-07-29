@@ -29,8 +29,7 @@ function getColor(username) {
     // Calculate color
     var index = Math.abs(hash % COLORS.length);
     var color = COLORS[index];
-    var shade = " darken-" + Math.floor(Math.random() * 3) + 1;
-    return color + shade;
+    return color;
 }
 
 
@@ -53,12 +52,12 @@ function validateUsername(username) {
     // Initialize variables
     var $window = $(window);
     var $usernameInput = $('#usernameInput'); // Input for username
-    
+
     var msg_box = $('#inputMessage');
     var $inputMessage = $('#inputMessage'); // Input message input box
 
     var $messages = $('.messages'); // Messages area
-    
+
     var $message_window = document.getElementById('messages-window');
 
 
@@ -108,25 +107,33 @@ function validateUsername(username) {
             (d.getMinutes() < 10 ? "0" + d.getMinutes() : d.getMinutes()) + " " +
             (d.getHours() < 12 ? "AM" : "PM");
 
+        var colorClass = getColor(data.username) + "-text";
+
         var li = parseTemplate($("#messageTemplate").html(), {
+            color: colorClass,
             username: data.username,
             time: currentTime,
             message: data.message,
-            hash: data._hash
+            hash: data._hash,
         });
         var t = $(li)[0];
-        // console.log(t);
+
         emojify.run(t);
-        
+
+
         if (data.username == globalUsername)
             classie.add(t, "zoomInLeft offset-l6");
         else
             classie.add(t, "zoomInRight");
-        
+
         $(t).find("i#done").attr('id', data._hash);
 
         $message_window.appendChild(t);
         // messages_cache[data._hash] = t;
+
+
+        // console.log();
+        $(t).find(".user-title").addClass(getColor(data.username) + "-text");
 
         $("html, body").animate({
             scrollTop: $(document).height()
