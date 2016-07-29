@@ -1,4 +1,4 @@
-var input = document.getElementById("m");
+var input = document.getElementById("inputMessage");
 var awesomplete = new Awesomplete(input, {
     minChars: 1,
     autoFirst: true,

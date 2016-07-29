@@ -15,7 +15,7 @@ block content
       form(action="",class="")
         div(class='row')
           div(class='col offset-s1 s8 input-feild awesomplete')
-            input(id="m"  autofocus="true"  autocomplete="off",class='messagebox')
+            input(id="inputMessage"  autofocus="true"  autocomplete="off",class='messagebox')
 
           button(class="col s2 btn-large waves-effect waves-light teal lighten-1 messagebox")
            |Send
@@ -29,7 +29,7 @@ block content
           div(class="input-field col s12")
             i(class="material-icons prefix")
               |account_circle
-            input(id="username", value= '#{name}', type="text", class="validate")
+            input(id="usernameInput", value= '#{name}', type="text", class="validate")
             label(class="active" for="username")
               |First Name
     div(class="modal-footer")
@@ -44,7 +44,7 @@ block footer
   script(src='/javascripts/classie.js')
   script(src='/javascripts/awesomplete.js')
   script(src='/javascripts/emojify.min.js')
-  script(src='/javascripts/materialize.min.js')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js')
   script(src='/javascripts/clientConnection.js')
   script(src='/javascripts/auto.js')
   script(src='/javascripts/templateParser.js')

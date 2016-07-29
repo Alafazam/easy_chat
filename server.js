@@ -1,4 +1,5 @@
 var express = require('express');
+var _ = require('lodash');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -6,10 +7,15 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var http = require('http');
 var config = require('./config');
+
+// Globals
 ios = require('socket.io-express-session');
 session = require("express-session")(config.session);
 Rooms = []
 RoomNames = []
+Sessions = {}
+Janta = {'/':[]}
+
 
 // imports for routes
 var routes = require('./routes/index');
@@ -49,8 +55,8 @@ server.listen(config.server_port, config.server_ip_address, function () {
 });
 
 io.use(ios(session));
-io.on('connection',connection.userConnection);
 
+io.on('connection',connection.userConnection);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -68,3 +74,4 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
+
