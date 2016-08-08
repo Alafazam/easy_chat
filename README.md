@@ -18,16 +18,16 @@ Easy chat aims to be a simple IRC-type-chat applications for small teams, using 
 ## Installation:
 
 ###To use locally
-1. Clone the repo and install dependencies.
+- Clone the repo and install dependencies.
 ```bash
 git clone https://github.com/Alafazam/easy_chat.git
 cd easy_chat
 npm install
 ```
 
-2. All done. Run:
+- Done. now run:
 ```bash
 npm start
 ```
 
-3. Go [here](http://localhost:8080/)
+- Go [here](http://localhost:8080/)
