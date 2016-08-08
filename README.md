@@ -7,6 +7,14 @@ Easy chat aims to be a simple IRC-type-chat applications for small teams, using 
 
 
 
+## Features:
+
+1. Pre assigned random usernames.
+2. Emoji Drawer (Support all mainstream emojis)
+3. Autocomplete for emojis
+5. One common chatroom and chatroom genrator
+6. Materialistic UI
+
 ## Installation:
 
 ###To use locally
